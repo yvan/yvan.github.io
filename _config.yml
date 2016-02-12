@@ -1,14 +1,11 @@
-title: vida
+title: cueblog
 
-date_format: "%Y-%m-%d"
+date_format: "%m-%d-%y"
 
 # Build settings
 markdown: kramdown
-# redcarpet:
-#   extensions: ["smart", "tables", "with_toc_data"]
 permalink: pretty
 
 # Third-party services
 # just leave someone empty to disable it
-google_analytics:
-disqus_shortname:
+google_analytics: 'UA-73730410-2'
