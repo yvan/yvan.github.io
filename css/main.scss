@@ -19,3 +19,7 @@ $border-color: #ddd;
 @import "base";
 @import "layout";
 @import "syntax";
+
+h2 {
+    text-transform: lowercase;
+}
