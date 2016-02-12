@@ -7,4 +7,4 @@ permalink: /about/
 
 
 - Author: yvan scher
-- Twitter:  @yvanscher
+- Twitter:  [@yvanscher](https://twitter.com/yvanscher)
