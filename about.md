@@ -1,11 +1,10 @@
 ---
 layout:    page
-title:     About
+title:     cueblog
 permalink: /about/
 ---
 
-Vida is a minimalist jekyll theme.
 
-- Author: Alex Sun
-- Email:  syaningv@gmail.com
-- Github: [https://github.com/syaning/vida](https://github.com/syaning/vida)
+
+- Author: yvan scher
+- Twitter:  @yvanscher
