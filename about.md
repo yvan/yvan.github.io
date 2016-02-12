@@ -2,6 +2,6 @@
 layout:    post
 permalink: /about/
 ---
-Author: yvan scher
+yvan scher
 
-Twitter:  [@yvanscher](https://twitter.com/yvanscher)
+[@yvanscher](https://twitter.com/yvanscher)
