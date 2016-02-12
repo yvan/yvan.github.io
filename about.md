@@ -1,10 +1,7 @@
 ---
-layout:    page
-title:     cueblog
+layout:    post
 permalink: /about/
 ---
+Author: yvan scher
 
-
-
-- Author: yvan scher
-- Twitter:  [@yvanscher](https://twitter.com/yvanscher)
+Twitter:  [@yvanscher](https://twitter.com/yvanscher)
