@@ -1,5 +1,10 @@
-If we ask questions about everything to the point where we can't answer will our universe unravel?
+---
+layout:    post
+permalink: /ropeuniverse/
+---
 
-if we keep asking why of things we often reach a point where we can't answer.
+why do we ask questions to the point where we can't answer?
 
-is our universe just full of loose end ropes? 
+is our universe just full of loose rope ends? 
+
+will our universe unravel?
