@@ -9,7 +9,7 @@ i get a text from Cheryl! nevermind, it’s just imessage fucking up sending me 
 
 *fuck you imessage.*
 
-‘cheryl is dead. <s>fuck</s>*Fuck.* 
+‘cheryl is dead. <s>fuck</s> *Fuck.* 
 
 i’m so stupid, how the *fuck* did i miss the ‘signs?’ i didn’t miss them. i just misinterpreted them because i was clueless, not perceiving enough. 1 day and shitty brain chemistry was a shit predicament. why didn’t i just make her move in a week before her lease was up? why didn’t i have 2 extra days?
 
