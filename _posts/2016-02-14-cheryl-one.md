@@ -1,13 +1,13 @@
 ---
 layout:    post
-permalink: /ropeuniverse/
+permalink: /cherylone/
 ---
 
 i’m fine, stable, programming or thinking, listening to music.
 
 i get a text from Cheryl! nevermind, it’s just imessage fucking up sending me a text from fucking months ago...
 
-* *fuck you imessage.* * 
+*fuck you imessage.*
 
 ‘cheryl is dead. ~~fuck~~ *Fuck.* 
 
