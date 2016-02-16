@@ -9,4 +9,4 @@ Pages hosting for personal projects.
 
 [universe mirror](http://cueblog.com/universemirror/)
 
-['layman guide' individuals](http://cueblog.com/laymanindividuals/)
+[reality : individuals](http://cueblog.com/laymanindividuals/)
