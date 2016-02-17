@@ -10,3 +10,5 @@ Pages hosting for personal projects.
 [universe mirror](http://cueblog.com/universemirror/)
 
 [reality : individuals](http://cueblog.com/laymanindividuals/)
+
+[wasabi pea](http://cueblog.com/wasabipea/)
