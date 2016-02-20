@@ -1,4 +1,4 @@
-# yvan.github.io
+# yvan.github.io / cueblog.com
 Pages hosting for personal projects.
 
 [cueblog.com](http://cueblog.com/)
@@ -12,3 +12,5 @@ Pages hosting for personal projects.
 [reality : individuals](http://cueblog.com/laymanindividuals/)
 
 [wasabi pea](http://cueblog.com/wasabipea/)
+
+[di poem](http://cueblog.com/dipoem/)
