@@ -15,4 +15,4 @@ Pages hosting for personal projects.
 
 [di poem](http://cueblog.com/dipoem/)
 
-[neighborl ysex](http://cueblog.com/neighborlysex/)
+[neighborly sex](http://cueblog.com/neighborlysex/)
