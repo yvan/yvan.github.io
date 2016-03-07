@@ -23,7 +23,7 @@ why silo patterns are bad:
 silo patterns are fundamentally anti-social and destroy intimacy. because we have accepted silo patterns we seek the idea of intimacy. those that actually seek intimacy feel so alien relative to other humans they ask themselves whther they are human at all.
 
 let's look at a tangible example:
-```
+
 human karl has a partner or girlfriend.
 
 human karl makes a silo for his love life and a silo for his work.
@@ -33,7 +33,6 @@ he does not let his partner help him with work.
 he does not let his work contribute anything to his love life.
 
 he has two silos.
-```
 
 the effect of these silos is that if karl's girlfriend breaks up with him or if his work becomes demanding. either silo (the love life or his work) can die and the other silo will be unaffected. this is why a human might want to employ silo patterns. it protects some aspect of their life.
 
