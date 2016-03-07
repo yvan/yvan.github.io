@@ -44,6 +44,8 @@ these silos do nothing to protect the human. they protect only themselves. if a 
 
 humans can keep the silos or parts of their lives working but no matter how hard they try they cannot stop themselves from getting hurt.
 
+i think it's unrealistic to have no silos. just think long and hard about what you split away from yourself. the delusion could hurt you.
+
 you can silo your life.
 
 you should not.
