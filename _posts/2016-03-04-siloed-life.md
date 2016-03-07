@@ -5,7 +5,7 @@ permalink: /siloedlife/
 
 <b>silo patterns:</b>
 
-i have remarked a curious trend among humans living in rich western countries and especially rich cities like new york. i call it the silo pattern.
+i have remarked a curious trend among humans living in rich western countries and especially rich cities like new york. i call it the *silo pattern*.
 
 the silo pattern is a behavior intended to protect the emotion health of the human by separating the components of human life into different categories. this concept is rooted firmly in our culture; we are all creating silos, not thinking much of this status quo. for example:
 
