@@ -16,3 +16,5 @@ Pages hosting for personal projects.
 [di poem](http://cueblog.com/dipoem/)
 
 [neighborly sex](http://cueblog.com/neighborlysex/)
+
+[siloed life](http://cueblog.com/siloedlife/)
