@@ -18,3 +18,5 @@ Pages hosting for personal projects.
 [neighborly sex](http://cueblog.com/neighborlysex/)
 
 [siloed life](http://cueblog.com/siloedlife/)
+
+[siloed life](http://cueblog.com/livredoeuvre/)

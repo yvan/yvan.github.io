@@ -1,6 +1,6 @@
 ---
 layout:    post
-permalink: /bonjourmonlivre/
+permalink: /livredoeuvre/
 ---
 
 une foi il etait un livre
