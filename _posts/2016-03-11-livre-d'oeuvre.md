@@ -13,7 +13,7 @@ comme de l'encre d'une plume d'ecrivain
 
 mais cette fumee, oppose a l'encre 
 
-effça la belle poesie du livre
+effca la belle poesie du livre
 
 cela nous ramene au present
 
