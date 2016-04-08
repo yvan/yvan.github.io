@@ -20,3 +20,7 @@ Pages hosting for personal projects.
 [siloed life](http://cueblog.com/siloedlife/)
 
 [siloed life](http://cueblog.com/livredoeuvre/)
+
+[knowing](http://cueblog.com/knowing/)
+
+[tea](http://cueblog.com/tea/)
