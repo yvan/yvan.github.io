@@ -1,4 +1,4 @@
-.text {
+#text {
   background-color: #a81d00;
   color: #ffffff;
   font-family: Helvetica, sans-serif;
@@ -10,17 +10,17 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.text a {
+#text a {
   color: #E1D4C0;
   text-decoration: none;
 }
 
-.text a:hover {
+#text a:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 650px) {
-  .text {
+  #text {
     font-size: 34px;
     line-height: 40px;
     margin: 20px auto;
