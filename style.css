@@ -1,0 +1,28 @@
+.text {
+  background-color: #a81d00;
+  color: #ffffff;
+  font-family: Helvetica, sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 75px;
+  margin: 50px auto;
+  width: 90%;
+  -webkit-font-smoothing: antialiased;
+}
+
+.text a {
+  color: #E1D4C0;
+  text-decoration: none;
+}
+
+.text a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+  .text {
+    font-size: 34px;
+    line-height: 40px;
+    margin: 20px auto;
+  }
+}
