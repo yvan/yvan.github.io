@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yvan</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styleblog.css">
+</head>
+<body id="text">
+
+<p><h3>Learning Lisp<h3></p>
+
+<p>Lisp seems very poorly understood. People give many reasons for why lisp isn't popular. My thought is that lisp is harder to learn than most other languages. Lisp is essentially just an abstract syntax tree (AST). ASTs are great because they allow you to think of your program in pure, abstract building blocks; this allows a certain "hygiene of thought" that other languages lack. At the same time programming in tree syntax is much harder, it requires or at the least encourages recursive thought by default and humans do not naturally think recursively. When I picked up a kindle I started to read a lot more again. Lisp kind of feels like a kindle for programming - picking it up makes me want to program a lot more. I've wanted to learn lisp for a while; I decided to learn clojure, the "premier" lisp variant.</p>
+
+<p><h6>What I like about clojure:</h6></p>
+<p>
+1 - The language feels clear compared to common lisp. For a comparison of clojure to common lisp see part ~26:00 of simple made easy on parentheses overloading. To summarize: using characters other than a parenthesis has some code clarity advantages.
+</p>
+<p>
+2 - The JVM is powerful and actively developed by a lot of smart people. As much as I hate to admit it, java interoperability puts clojure right in the heart of many enterprise systems. Just saying "it runs on jvm" saves days, weeks, or months of discussion with concerned customers. Clojure is compiled to bytecode, even on the REPL.
+</p>
+<p>
+3 - It has a really awesome community making high quality content, guides, libraries, and apps. There is a book called clojure programming which I found very good. They explain not only how to program in clojure but important concepts that determine why it is different from other languages and the benefits of those differences. I read parts of a few other books (practical common lisp, ansi common lisp, brave clojure) - clojure programming makes a strong showing among these.
+</p>
+
+<p><h6>What I do not like about clojure:</h6></p>
+<p>
+  1 - Stack traces from the JVM look like 100–200 lines of useless trash. the error messages are really uninformative and as a beginner you might expect to spend like 2–3 hours debugging one when really it should take 2–3 minutes. I really did not enjoy this.
+</p>
+<p>
+  2 - Java interop/library support is really seamless but the downside of this is that every once in a while some s expression you write spits out some kind of java object which seems to not work the way you expect. It really breaks my focus to have to debug this java bullshit while programming in lisp.
+</p>
+<p>
+  3- Sometimes lein or proto repl breaks and throws weird errors (like that it can't find the "create" function - what? how does one debug that? I had this exact problem) and it's really frustrating. I've also tried alternatives like deps.edn but it doesn't always work quite right. Supporting java interop is nice but it has added some significant complexity. This is a complicated diagram to have understand to just … import some stuff. This in my opinion makes it very unfriendly to beginners and a bit of a time waster in general. I'm sure as you encounter these issues and internalize knowledge about how to solve them you waste less time, still - it bothers me.
+</p>
+<p>
+  4- The clojure ecosystem seems perfectly content to waste my time. For example if I want to profile my code in python I basically just import cProfile cProfile.run("some_func()"). It "just works." If I want to profile my code in clojure i need to figure out that the library I need is tufte (not clojure.contrib.profile - a library i cant figure out how to install/use, not timbre whose profiling is deprecated and moved into tufte), then i need to try to deal wit the fact that the example on tufte's github doesn't work. Even once I try it out in repl, the (p) wrapper for the profile returns nil….so…how the heck am I supposed to wrap different parts of my code whose results i need to keep? In a functional language this should be a question answered in basic example #1 - maybe I'm just a moron. In the end I just use (time) and my code takes a minute to run on a csv, my python implementation takes < 15 seconds for the exact same task. I cannot figure out why because I cannot profile the code. It does not "just work."
+</p>
+<p>Clojure resources: 4clojure interactive problems, great talk by rich hickey, simple made easy, comparisons across lisps, amperity github, overview of clojure benefits</p>
+
+<p>Reading</p>
+
+Hackers & Painters is a great book; everyone who is interested in the underlying trends of technology should read it. Paul Graham is a great writer - programmer. Reading about lisp and googling stuff like "who is using common lisp" you stumble on lots of "takes" about what people think of paul graham. He's at least worth skimming and has clearly thought a lot about many interesting topics. I've learned a lot from reading this book and even claims I don't agree with are really thought provoking.
+Other books I've been reading: game of thrones, how google works, history of money, elon musk bio, meditations by marcus aurelius, intro to mathematical thinking, infantry attacks, high growth handbook, the martian chronicles, the wizard of menlo park, dune messiah, big debt crises
+
+Learning common lisp
+I decided to give a real common lisp implementation a roll as well and started working through ansi common lisp by paul graham. I downloaded sbcl, which is a stable, completely opensource for public or private profit, actively developed branch of common lisp (with releases in late 2019). It is easy to install and use. You can buy ansi common lisp; I suspect it is also available as a pdf online. Common lisp is a very mature, stable, and has a ton of libraries for doing stuff. The community has a bad reputation which is weird because alot of people I meet online seem great and very helpful. Programming in common lisp feels really fun; it feels more fun than programming clojure. The language just kinda flows and may be a a more manageable step into lisp for many programmers (instead of learning lisp + rigid functional programming in one go - just learn lisp). Another great resource is the guide to the bel langauge. It's not just a map covering details of bel but a nice and very straightforward explanation of many lisp concepts. I think common lisp is good and I will likely be using it for some projects soon.
+Useful resources for common lisp: simple lisp reference, fukamachi's github, common lisp cookbook, companies using lisp, quicklisp install page, great discussion of CL and other lisps, incredible python - CL comparison, portacle: sbcl + emacs + quicklisp, shinmera's github, lisp resources (lispnyc), writing modern lisp in 2017, why lisp macros are cool, vsevolod dyomkin's site, vd's blog, in production lisp at grammarly, history of lisps, they call it lisp for a reason, land of lisp, modern lisp tools
+Reading On Lisp
+This is a really great book with lots of nice examples of macros. Graham really tries to communicate the real advantages of programming in lisp. I'm really enjoying the book and its challenging my perspectives as a programmer. Here's a link where you can read On Lisp by paul graham too.
+What's up next?
+Do SICP in Racket scheme(as the gods intended). They even have a special version of racket for doing sicp that probably more closely matches the MIT Scheme language it was originally taught in. It is a beautiful language and comes to me recommended by friends I respect.
+Messing around with haskell.
+Read peter norvig's (godfather of ai + respected lisp programmer) book called PAIP.
+Mess around with arc. An unfinished lisp originally released in the 2000s and built on top of Racket.
+Mess around with an implementation for bel. A recently released lisp by paul graham with implementation details unreleased.
+Conclusion
+Clojure: It's a really cool language with a stable core - but there are some issues that make it difficult to get into and sometimes it feels hard to do what you want to do and slower than you would want it to be.
+Common Lisp: CL is very fun to program with. It's very stable and mature ecosystem. If you use sbcl + portacle getting started is basically 5 minutes. I definitely recommend common lisp as an entry point to lisp.
+You can see my projects and hear updates about what is happening by subscribing to my (occasional) newsletter. Have a good day.
+</body>
+</html>
