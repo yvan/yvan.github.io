@@ -38,9 +38,16 @@ body {
 }
 
 ul {
+    width:100px;
     float: right;
     margin-top: 30px;
     margin-right: 20px;
-    list-style-type: none;
     text-align: right;
+    list-style-type: none;
+}
+
+#content {
+    width: 400px;
+    float: left;
+    margin-top: 15px;
 }
