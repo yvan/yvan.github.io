@@ -68,6 +68,10 @@ ul {
     color: #EE5A24;
 }
 
+#mc_embed_signup input {
+    margin-bottom: 10px;
+}
+
 a:link {
     color: #EE5A24;
 }
