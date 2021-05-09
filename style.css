@@ -72,10 +72,11 @@ li {
     color: #EE5A24;
     border: 1px solid #EE5A24;
     border-radius: 5px;
+    font-size: 14px;
 }
 
 #mc_embed_signup input {
-    margin-bottom: 10px;
+    
 }
 
 #mc-embedded-subscribe {
@@ -84,8 +85,8 @@ li {
 
 #mc_embed_signup_scroll {
     margin: auto;
-    width: 50%;
-    padding: 3px;
+    width: 35%;
+    padding: 0px;
     text-align: center;
 }
 
