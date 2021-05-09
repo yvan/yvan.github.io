@@ -63,6 +63,11 @@ ul {
     margin-left: 15px;
 }
 
+#mc_embed_signup{
+    clear:left;
+    font:13px Helvetica;
+}
+
 a:link {
     color: #EE5A24;
 }
