@@ -79,9 +79,7 @@ li {
 }
 
 #mc_embedded_subscribe {
-    background: transparent;
-    border: 1px solid #EE5A24;
-    color: #EE5A24;
+    background: #EE5A24;
 }
 
 #mc_embed_signup_scroll {
