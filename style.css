@@ -79,8 +79,8 @@ li {
 }
 
 #mc_embedded_subscribe {
-    background: Transparent;
-    border: 1px;
+    background: transparent;
+    border: 1px solid #EE5A24;
     color: #EE5A24;
 }
 
