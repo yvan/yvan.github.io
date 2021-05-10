@@ -61,7 +61,10 @@ li {
 }
 
 #blog-content {
-
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
 }
 
 /*detailing*/
