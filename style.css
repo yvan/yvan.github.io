@@ -8,9 +8,9 @@ body {
 ul {
     width:100px;
     float: left;
-    margin-top: 30px;
-    margin-left:20px;
-    text-align:left;
+    /* margin-top: 30px; */
+    /* margin-left:20px; */
+    /* text-align:left; */
     list-style-type: none;
 }
 
