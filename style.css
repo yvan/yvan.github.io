@@ -64,6 +64,15 @@ li {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    font-size: 20px;
+}
+
+#blog-content p {
+    /* letter-spacing:; */
+    /* word-spacing:; */
+    line-height:1.5;
+    /* text-indent:; */
+    margin-bottom: 5px;
 }
 
 /*detailing*/
