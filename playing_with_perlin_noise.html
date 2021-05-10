@@ -24,7 +24,27 @@
   </div>
   <div id="content">
   <div id="blog-content">
-    <p>Test</p>
+    <p>Perlin noise is a mathematical formula used to generate ‘realistic’ structures. It’s noise but unlike regular noise it has some coherent structure. You can think of perlin noise as multiple samples of a noisy field sampled at different resolutions and layered on top of each other. Here is regular noise vs. Perlin noise:</p>
+
+    <p>In the python noise module there are a few parameters that affect what you see when you generate your perlin noise:
+
+scale: number that determines at what distance to view the noisemap.
+
+octaves: the number of levels of detail you want you perlin noise to have.
+
+lacunarity: number that determines how much detail is added or removed at each octave (adjusts frequency).
+
+persistence: number that determines how much each octave contributes to the overall shape (adjusts amplitude).
+
+We won’t worry about scale too much, you can use it to zoom out (bigger scale) or in (smaller scale).
+
+Perlin noise combines multiple functions called ‘octaves’ to produce natural looking surfaces. Each octave adds a layer of detail to the surface. For example: octave 1 could be mountains, octave 2 could be boulders, octave 3 could be the rocks.
+
+Lacunarity of more than 1 means that each octave will increase its level of fine grained detail (increased frqeuency). Lacunarity of 1 means that each octave will have the sam level of detail. Lacunarity of less than one means that each octave will get smoother. The last two are usually undesirable so a lacunarity of 2 works quite well.
+
+Persistence determines how much each octave contributes to the overall structure of the noise map. If your persistence is 1 all octaves contribute equally. If you persistence is more than 1 successive octaves contribute more and you get something closer to regular noise (the regular noise image above is actually a perlin noise with a persistence of 5.0). A more default setting would be a persistence of less than 1.0 which will decrease the effect of later octaves.
+
+Enough chatting though! Let’s run some experiments. First let’s start with default perlin noise, and its accompanying image:</p>
   </div>
   </div>
 </body>
