@@ -60,6 +60,13 @@ li {
     text-align: center;
 }
 
+#blog-content-header {
+    width: 100px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
 #blog-content {
     margin-left: auto;
     margin-right: auto;
