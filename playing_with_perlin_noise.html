@@ -51,19 +51,27 @@ lacunarity: number that determines how much detail is added or removed at each o
     
     <p>The way this perlin noise looks in our script is a 2D array of values between -1 and 1. The values that are darker on the map are lower values, the values that are close to 1 are lighter. What I want to try next is assigning two colors to different ranges of values in this map to produce some terrain:</p>
 
-    <img src=""/>
+    <p><script src="https://gist.github.com/yvan/c73ce9a819f68040928462824bc4531f.js"></script></p>
+    
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/islands_prelim.png"/></p>
     
     <p>This terrain map is pretty neat; it has jagged coasts, beaches, and lots of water. while I have never observed natural terrain that looks like this if we look at any one part of the map it seems ‘realistic.’ Let’s take it a step further and add mountains and snow:</p>
 
-    <img src=""/>
+    <p><script src="https://gist.github.com/yvan/9f1854361d6e2b5948c053b355949113.js"></script></p>
+    
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/islands_prelim2.png"/></p>
     
     <p>This is cool but this terrain pattern is clearly not natural. To make it more natural we will use a circular filter to get rid of all the preipheral perlin noise:</p>
 
-    <img src=""/>
+    <p><script src="https://gist.github.com/yvan/01f56b3319f4c3eb12a07a62c8277e9a.js"></script></p>
+
+        <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/world.png"/></p>
     
     <p>Here I was trying to create an island so I made a circular filter and then applied it to the color_world perlin noise array. What I ended up was a planet floating in an ocean. I changed the ocean color to black and it looks pretty cool! That said what I wanted was an island so let’s try again. This time we’re going to calculate a circular gradient and then apply that over the perlin noise as a filter.</p>
 
-    <img src=""/>
+    <p><script src="https://gist.github.com/yvan/eafa24f258ec519e84eb837bdad6cde5.js"></script></p>
+
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/gradient.png"/></p>
  
     <p>I struggled a lot with this part. I’m sure there is a more efficient way to get the gradient like this but the above was what I came up with. I calculated a distance metric from the center of the map and then normalized, shrunk, and renomalized those distances to produce this spherical gradient. Again lighter means the value is closer to 1, darker colors are closer to 0. Next I apply this circular gradient to the perlin noise we created before.</p>
 
