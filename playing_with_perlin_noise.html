@@ -23,9 +23,14 @@
     <p><a href="http://yvanscher.com/blog">Writing</a></p> 
   </div>
   <div id="blog-content">
-    <p>Perlin noise is a mathematical formula used to generate ‘realistic’ structures. It’s noise but unlike regular noise it has some coherent structure. You can think of perlin noise as multiple samples of a noisy field sampled at different resolutions and layered on top of each other. Here is regular noise vs. Perlin noise:</p>
+    <p>Perlin noise is a mathematical formula used to generate ‘realistic’ structures. It’s noise but unlike regular noise it has some coherent structure. You can think of perlin noise as multiple samples of a noisy field sampled at different resolutions and layered on top of each other. Here is regular noise:</p>
+    
     <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/noise.png"/></p>
+
+    <p>And Perlin noise:</p>
+    
     <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/perlin_noise.png"/></p>
+    
     <p>In the python noise module there are a few parameters that affect what you see when you generate your perlin noise:
 
 scale: number that determines at what distance to view the noisemap.
@@ -34,19 +39,15 @@ octaves: the number of levels of detail you want you perlin noise to have.
 
 lacunarity: number that determines how much detail is added or removed at each octave (adjusts frequency).
 
-persistence: number that determines how much each octave contributes to the overall shape (adjusts amplitude).
+      persistence: number that determines how much each octave contributes to the overall shape (adjusts amplitude).</p>
 
-We won’t worry about scale too much, you can use it to zoom out (bigger scale) or in (smaller scale).
+<p>We won’t worry about scale too much, you can use it to zoom out (bigger scale) or in (smaller scale). Perlin noise combines multiple functions called ‘octaves’ to produce natural looking surfaces. Each octave adds a layer of detail to the surface. For example: octave 1 could be mountains, octave 2 could be boulders, octave 3 could be the rocks. Lacunarity of more than 1 means that each octave will increase its level of fine grained detail (increased frqeuency). Lacunarity of 1 means that each octave will have the sam level of detail. Lacunarity of less than one means that each octave will get smoother. The last two are usually undesirable so a lacunarity of 2 works quite well. Persistence determines how much each octave contributes to the overall structure of the noise map. If your persistence is 1 all octaves contribute equally. If you persistence is more than 1 successive octaves contribute more and you get something closer to regular noise (the regular noise image above is actually a perlin noise with a persistence of 5.0). A more default setting would be a persistence of less than 1.0 which will decrease the effect of later octaves.</p>
 
-Perlin noise combines multiple functions called ‘octaves’ to produce natural looking surfaces. Each octave adds a layer of detail to the surface. For example: octave 1 could be mountains, octave 2 could be boulders, octave 3 could be the rocks.
+    <p>Enough chatting though! Let’s run some experiments. First let’s start with default perlin noise, and its accompanying image:</p>
 
-Lacunarity of more than 1 means that each octave will increase its level of fine grained detail (increased frqeuency). Lacunarity of 1 means that each octave will have the sam level of detail. Lacunarity of less than one means that each octave will get smoother. The last two are usually undesirable so a lacunarity of 2 works quite well.
+    <p><script src="https://gist.github.com/yvan/fbc8c513965d28b920767a46b881dd1d.js"></script></p>
 
-Persistence determines how much each octave contributes to the overall structure of the noise map. If your persistence is 1 all octaves contribute equally. If you persistence is more than 1 successive octaves contribute more and you get something closer to regular noise (the regular noise image above is actually a perlin noise with a persistence of 5.0). A more default setting would be a persistence of less than 1.0 which will decrease the effect of later octaves.
-
-      Enough chatting though! Let’s run some experiments. First let’s start with default perlin noise, and its accompanying image:</p>
-
-    <img src=""/>
+   <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/perlin_noise2.png"/></p>
     
     <p>The way this perlin noise looks in our script is a 2D array of values between -1 and 1. The values that are darker on the map are lower values, the values that are close to 1 are lighter. What I want to try next is assigning two colors to different ranges of values in this map to produce some terrain:</p>
 
