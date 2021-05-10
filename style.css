@@ -50,12 +50,20 @@ li {
     margin-left: 15px;
 }
 
+#blog-content img {
+    text-align: center;
+}
+
 #blog-content p {
     /* letter-spacing:; */
     /* word-spacing:; */
     line-height:1.5;
     /* text-indent:; */
     margin-bottom: 5px;
+}
+
+#blog-content #mc_embed_signup {
+    text-align: center;
 }
 
 /*form css*/
