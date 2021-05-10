@@ -74,21 +74,23 @@ lacunarity: number that determines how much detail is added or removed at each o
     <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/gradient.png"/></p>
  
     <p>I struggled a lot with this part. I’m sure there is a more efficient way to get the gradient like this but the above was what I came up with. I calculated a distance metric from the center of the map and then normalized, shrunk, and renomalized those distances to produce this spherical gradient. Again lighter means the value is closer to 1, darker colors are closer to 0. Next I apply this circular gradient to the perlin noise we created before.</p>
-
-    <img src=""/>
+    
+    <p><script src="https://gist.github.com/yvan/373057728d000886e8eca3dbd350ba84.js"></script></p>
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/perlin_gradient.png"/></p>
     
     <p>This part was less tricky but still a pain. I multiply the perlin noise by the circle gradient and then I increase the contrast by multiplying positive (lighter values) by 20. Then I renormalize to make it 0–1 again.</p>
 
-    <img src=""/>
+    <p><script src="https://gist.github.com/yvan/d4ffb92d520f93adfd1d548747cdf0ac.js"></script></p>
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/islands1.png"/></p>
     
     <p>This is really cool and it looks like a much more natural archipelago. I encourage you to try different shading methods and maybe randomly removing some sections. I’m going to change the threshold value and set it as threshold = 0.2. That will produce a smaller but more realistic archipelago as so:</p>
 
-    <img src=""/>
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/islands2.png"/></p>
     
     <p>There we are! We have a natural looking island archipelago! So now that we have our islands you may notice that no matter how often you rerun this script perlin noise will produce the same islands. To get new islands you can set the base parameter of the pnoise2 function to a random integer number, let’s try base=5, base=100:</p>
 
-    <img src=""/>
-    
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/islands3.png"/></p>
+    <p><img style="width:25%;height:25%;" src="http://yvanscher.com/img/playing_with_perlin_noise/islands4.png"/></p>    
     <p>So we started with some simple noise and ended up with a way to generate a realtively unlimited number of unique and natural looking archipelagos! I hope you enjoyed this post!</p>
   </div>
 </body>
