@@ -80,7 +80,8 @@ li {
 }
 
 #mc-embedded-subscribe {
-    border: 1px solid ##EE5A24;
+    /* border: 1px solid ##EE5A24; */
+    border: 0px;
     background: none;
     box-shadow: none;
     border-radius: 0px;
