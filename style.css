@@ -58,7 +58,7 @@ li {
 }
 
 /*form css*/
-#mc_embed_signup{
+#mc_embed_signup {
     color: #EE5A24;
     margin-top: 10%;
     margin-bottom: 5%;
@@ -73,6 +73,14 @@ li {
     width: 45%;
     padding: 0px;
     text-align: center;
+}
+
+#mce-EMAIL {
+    margin-bottom: 5%;
+}
+
+#mc-embedded-subscribe {
+    margin-bottom: 5%;
 }
 
 /*detailing*/
