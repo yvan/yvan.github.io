@@ -8,9 +8,6 @@ body {
 ul {
     width:100px;
     float: left;
-    /* margin-top: 30px; */
-    /* margin-left:20px; */
-    /* text-align:left; */
     list-style-type: none;
 }
 
@@ -51,10 +48,7 @@ li {
 }
 
 #blog-content p {
-    /* letter-spacing:; */
-    /* word-spacing:; */
     line-height:1.5;
-    /* text-indent:; */
     margin-bottom: 5px;
 }
 
@@ -80,13 +74,13 @@ li {
     text-align: center;
 }
 
-#mc_embed_signup input {
+/* #mc_embed_signup input { */
     
-}
+/* } */
 
-#mc-embedded-subscribe {
+/* #mc-embedded-subscribe { */
 
-}
+/* } */
 
 /*detailing*/
 a:link {
