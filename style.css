@@ -74,9 +74,10 @@ li {
     text-align: center;
 }
 
-/* #mc_embed_signup input { */
-    
-/* } */
+#mc_embed_signup input {
+    margin-bottom: 2px;
+    Background: transparent;
+}
 
 /* #mc-embedded-subscribe { */
 
