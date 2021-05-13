@@ -45,7 +45,7 @@
     <p>Adding saving</p>
     <p>First, we are going to add saving to the game. In its most basic form, saving the game state and loading it again involves storing the locations of everything on the screen, our character, and our inventory, and populating these values from this save when we load up the game. So the way I've implemented saving is to make everything in the game world that I want to save a value inside a python dictionary called game_state, then I save this dictionary to a file. Below you can see a video of me saving my game then loading that save.</p>
 
-    <a href="https://www.youtube.com/watch?v=W0VStNEoPKY"/>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/W0VStNEoPKY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <p>To save our game, you can press the 's' key, and it will automatically create a file called save-file-DATE.save, which contains all the info needed to reload our game. Whenever we have a new feature we want to be save-able, we make sure it is part of the game_state dictionary in our code, and our function will save it.</p>
 
