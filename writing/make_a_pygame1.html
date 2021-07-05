@@ -50,51 +50,67 @@
 
     <p>We have the blank world of the void. We have our wizard character (a 40x40 png). Even though it looks static in actuality the program of our game is running and re-rendering this world and our character every few miliseconds. Still, this game is not particularly interesting as we can’t move our character, look at a pretty map or do much of anything. Let’s change that in the next section. You can ctrl-c the program we are running on the terminal to exit this game.</p>
 
-    
-    
-    ============================
-    
-    <p>Before that, we need to ask: what is the point of our game? If you want to make a good game, it should have a single point. For example, Mount and Blade, a great medieval sandbox RPG in an open world, still has a single goal: "advance and develop your character." There are many ways to accomplish this single goal: fighting, trading, tournaments, doing quests, ruling fiefs, founding businesses, raiding. The point of our game is to build structures. Our objective will provide guidelines for each structure to make. We can then add a story or measurement system. "You are a wizard stonemason who, hired to build vaults. You need to get your vault as close as possible to the guideline structure to increase your score."</p>
-    
-    <p><h2>Our mechanic</h2></p>
-    <p>The mechanic is the actual thing the player does to achieve our objective. The mechanic will be a secondary view where you can press a button and see what the structure should look like, and then you can build it. The clouds we added in part 1 obscure vision and also increased the difficulty a bit.</p>
+    <p><h2>Registering events for your character.</h2></p>
 
-    
-    <p>We are adding to our game...</p>
-    <p>1- saving so a game can be loaded with prior progress and we can save/load objectives</p>
-    <p>2- an objective with visualization mechanic to build a specific structure on the map</p>
-    <p>3- a scoring mechanism to rate the result</p>
-    
-    <p><h2>Adding saving</h2></p>
-    <p>First, we are going to add saving to the game. In its most basic form, saving the game state and loading it again involves storing the locations of everything on the screen, our character, and our inventory, and populating these values from this save when we load up the game. So the way I've implemented saving is to make everything in the game world that I want to save a value inside a python dictionary called game_state, then I save this dictionary to a file. Below you can see a video of me saving my game then loading that save.</p>
+    <p>If you messed up the “Installing pygame” step events probably wont register on your mac. This could happen if you are using virtualenv or anaconda python. Again go back and install python3 and pygame as indicated above. In this section we are going to register arrow keypresses to make our character move around our empty world.</p>
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/W0VStNEoPKY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <script src="https://gist.github.com/yvan/22ba58b9474590d8bda8e6417c45e1c6.js"></script>
 
-    <p>To save our game, you can press the 's' key, and it will automatically create a file called save-file-DATE.save, which contains all the info needed to reload our game. Whenever we have a new feature we want to be save-able, we make sure it is part of the game_state dictionary in our code, and our function will save it.</p>
+    <p>This should produce a game world where you can move left, right, up, and down and press the red exit button to in the top left of the window to leave, here is a video of that:</p>
 
-    <script src="https://gist.github.com/yvan/a120b42e42b114772e1746f08cbb9ca3.js"></script>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/d-bU10izkY8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    <p><h2>Adding the objective</h2></p>
+    <p>Even though we can now move in this world, there isn’t a whole lot there. Let’s fix that by creating an interesting map</p>
 
-    <p>We are going to use our save functionality here to make our objective. We are going to make two world states that the player can make. These world states are pretty designs/layouts for our little game. The goal is to get the world as close as possible to this world state. So I will create these states and save my game and then load them into a new mechanic we will call 'future sight.' If we press/hold 'f,' we will see the structure we need to make superimposed onto the map. Below you can see me examining an objective.</p>
+    <p><h2>Let’s make the world a little more interesting by adding a map.</h2></p>
 
+    <p>Our map will be made of tiles, and each tile will be a resource in our game.</p>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/PgQHAaRh4Ug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <script src="https://gist.github.com/yvan/ed60896acf8be9260ed6c1ea36362e1f.js"></script>
 
-    <p>You can create your objectives by making a structure then pressing the 'o' key, which will save just the tilemap from the game_state as an objective file. Then to use that as the objective for a level, you have to load it as I did on the command line. Here is the code:</p>
+    <p>You should now have a pretty map of resources:</p>
 
-    <script src="https://gist.github.com/yvan/6b0c0ecb4f473426f48d9736603e88cc.js"></script>
+    <img src="http://yvanscher.com/img/make_a_pygame1/img2.png" target="_blank"/>
 
-    <p><h2>Adding scoring</h2></p>
+    <p>So you can now walk around, and we have a pretty map. Let’s add the ability to interact with this map in some way.</p>
 
-    <p>You may notice that we have no way to score the end product. We will create a yellow outline in the objective view (the view that shows our goal structure), and this yellow outline will denote the scoring area. To score our game, we press 'e'. This gives us a score based on how close our structure is to the objective. I updated our function that saves objectives to now save the tilemap and an empty rectangle called scoring_rect. To add a rectangle, you can edit the values in the objective file under the key "scoring_rect." The values are in a list, and there should only be 4 (x, y,  width, height of the rectangle). You can open the objective file in any plain text editor and make whatever scoring area you want. Here is a video of me attempting to build this objective then scoring it with our new scoring function. I score it several times, going eventually to a score of 81.</p>
+    <p><h2>Adding an inventory to keep track of your resources.</h2></p>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/PrjWD9gqoVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p>This section will add an inventory and a way to pick up resources using the space key.</p>
 
-    <p>Notice I am constantly checking the objective with 'f' to see what I should be building.</p>
-    <p>Here is the code:</p>
+    <script src="https://gist.github.com/yvan/b14962d3e8c2aea1db869f375bbe48bd.js"></script>
 
-    <script src="https://gist.github.com/yvan/f4dc6d7a843a6aff5266905b5ef008c6.js"></script>
+    <p>You should now be able to move, pick up resources and see them increasing in your inventory. You may have noticed it is possible to pick up an infinite amount of dirt. Here is an image of me cleaning out a corner of the map, and you can see the resources in my inventory:</p>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img3.png" target="_blank"/>
+
+    <p>You may notice that there are resources in your inventory that are not on the map. That’s because these resources need to be crafted. In the next section, we will design a crafting system.</p>
+
+    <p><h2>Adding a crafting system.</h2></p>
+
+    <p>Our crafting system will work because if you press the number key corresponding to the resource, press the mouse button, and have the ingredients in your inventory. It will craft that resource. For example, to create fire, we need one piece of wood. So pressing the ‘6’ key and the left mouse click and having one wood in our inventory will create one fire. This section will also add a way to place resources down on the ground (swapping whatever is on the ground into our inventory). To place a resource down, we will press the number key representing that resource, so to put down the fire we crafted, we press ‘6.’</p>
+
+    <script src="https://gist.github.com/yvan/c608dcdef372c58f4feb1cbc8bf101e9.js"></script>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img4.png" target="_blank"/>
+
+    <p>As you can see, I’ve created a moat of water with a stone wall and barrier of fire around my cache of precious glass. We wouldn’t want anyone to steal it. Experiment with this and build stuff if you want. Just remember our game has no saving.</p>
+
+    <p><h2>Adding ambient features to your world.</h2></p>
+
+    <p>To make our world a little more immersive, we will add a cloud and some birds to the environment. The clouds will move across the map and obscure vision (adding a small element of challenge as you are trying to build). In the last section, you may have noticed that cloud was listed as a resource and in the textures dictionary. While strictly not a resource, it is easier for us to keep using our current way of looking up textures, so we’ll keep it this way.</p>
+
+    <script src="https://gist.github.com/yvan/4a87eb87092f93cfea6d721dc1e71b3f.js"></script>
+
+    <p>Typically, we would use something called a sprite for the bird, but I wanted to keep this tutorial simple, so I made my little method that tells us which bird image to animate. If you wait long enough now, you will see two clouds and a bird adding a little bit of life to our game. Check it out:</p>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img5.png" target="_blank"/>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/iVEyEufnPac" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p><h2>Conclusion</h2></p>
+
+    <p>In a future tutorial I may go over saving games, adding goals to the game, adding enemies that work against you as you try to accomplish your goals. If you liked this tutorial, don’t forget to leave some claps, and you can signup to see more at my newsletter here. All the steps in this post and resources I used to make this game are here on github.</p>
 
     <p>If you enjoyed this post, be sure to signup for more.</p>
 
