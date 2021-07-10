@@ -112,14 +112,14 @@
 
     <p>So I think the loops are pretty well explained above. You will notice here we set aside code to be called outside the procedure division. This is because we want to define these as things we can do, but we don't actually want to run them in the procedure division, so we put them in paragraphs outside the procedure division. To do this, each one needs to have a name that we can reference/use in the procedure division. So B-PARA-TIMES will only be run when it's called in our loop on line 13.</p>
 
-    <p>Files</p>
+    <p><h2>Files</h2></p>
     <p>Files in cobol usually have a rigid structure like a table. This is because of what they were created for dealing with: well-organized business data. There are a few kinds of files in cobol (docs, another example); we will deal with sequential files as they are the most basic. A sequential file consists of records (rows), and each record contains some number of fields (columns). Let's get to the code.</p>
 
     <script src="https://gist.github.com/yvan/fb72c1c439c0d101a99ac67dd45bdb6f.js"></script>
 
     <p>So in cobol you need to specify the file and the kind of file it is in the INPUT-OUTPUT SECTION. Then, you need to specify what kind of records are in your file. Then you need to create such a record with the exact same structure. Then in the PROCEDURE DIVISION, you open the file (see open modes for details). Then you when writing, you specify what kind of record you are adding and the record itself. Here we have opened our file in OUTPUT mode, which always re-creates a file when you open it even if it already exists. You can make writing a file take 100 lines of code in cobol, so I tried to keep it shorter. This is a nice guide on sequential files in cobol. To understand the syntax of WRITE, here are the ibm docs.</p>
 
-    <p>Resources for mainframe programming</p>
+    <p><h2>Resources for mainframe programming</h2></p>
     <p>If you are interested in legacy systems and cobol, you will probably want to play around on a mainframe. They are hard to use and look something like this:</p>
 
     <img src="http://yvanscher.com/img/7_cobol_examples/img1.png" target="_blank"/>
