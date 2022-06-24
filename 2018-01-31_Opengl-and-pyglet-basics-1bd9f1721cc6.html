@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Opengl and pyglet basics</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Opengl and pyglet basics</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+A pyglet micro-tutorial.
+</section>
+<section data-field="body" class="e-content">
+<section name="bd0d" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="e9af" id="e9af" class="graf graf--h3 graf--leading graf--title">Opengl and pyglet basics</h3><p name="59c5" id="59c5" class="graf graf--p graf-after--h3">A pyglet micro-tutorial.</p><p name="4865" id="4865" class="graf graf--p graf-after--p">I’ve been learning to program graphics with <a href="http://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/" data-href="http://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">pyglet</a>, a python binding for <a href="https://www.opengl.org" data-href="https://www.opengl.org" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">opengl</a>. I’ve noticed that there aren’t any really great or clear tutorials that actually explain things. Most of the tutorials add code without explaining what each line of code is responsible for doing. The last point is particularly problematic in graphics because there are so many little settings and options. It’s also worth noting that many settings don’t really do much of anything in isolation and only work with other settings.</p><p name="2a90" id="2a90" class="graf graf--p graf-after--p">In this tutorial we are going to go over some basics to get your going and some little quirks. Eventually we will render 3D objects and structures in a later tutorials. By the end of this tutorial we’ll make an animation that looks like plane propellers!</p><figure name="9b72" id="9b72" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 549px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 78.5%;"></div><img class="graf-image" data-image-id="1*PJvsWcpU6cHamjYNZPRayw.png" data-width="1282" data-height="1006" data-is-featured="true" src="img/1_PJvsWcpU6cHamjYNZPRayw.png"></div><figcaption class="imageCaption">Propeller animation freeze frame!</figcaption></figure><p name="6464" id="6464" class="graf graf--p graf-after--figure">Before we do anything else in pyglet we’ll want to make a window. A window is literally an empty box that appears on the screen:</p><figure name="5110" id="5110" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/a981214bd0659025dc29b64d63e30cc8.js"></script></figure><p name="dfa2" id="dfa2" class="graf graf--p graf-after--figure">This should show a black window like so:</p><figure name="e0c2" id="e0c2" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 550px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 78.5%;"></div><img class="graf-image" data-image-id="1*7r0SsZsUsr6_qMEXDPgSdQ.png" data-width="1284" data-height="1008" src="img/1_7r0SsZsUsr6_qMEXDPgSdQ.png"></div></figure><p name="321a" id="321a" class="graf graf--p graf-after--figure">In the next section we will be taking this window and overriding an event method. These events are functions that trigger when a certain thing happens to/in this window. We will be overriding the <code class="markup--code markup--p-code">on_draw</code> function on the window object we created. This event is triggered once at the beginning when the window is loaded. There are ways to update and redraw things in the window but we’ll get to that later in the post. We override this function by using a decorator, <code class="markup--code markup--p-code">@win.event</code>, that is builtin to the window object we created. Let’s override the function and see what happens…</p><figure name="a120" id="a120" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/cb5e8d1312c8973a32c0fd4f5f6f767a.js"></script></figure><p name="4d0f" id="4d0f" class="graf graf--p graf-after--figure">If you run this it should produce a black window like before and also output a printed <code class="markup--code markup--p-code">Draw triggered!</code> on the command line or jupyter notebook output. This confirms for us that <code class="markup--code markup--p-code">on_draw</code> is triggered once on the window load. Next we will draw a line in our window. The way drawing lines works in pyglet is that you grab an opengl context and then create vertices in this context, the vertices then get connected, in the order you declared them, in the way the context specifies. As you can see below <code class="markup--code markup--p-code">glBegin(GL_LINES)</code> creates a context where we can draw, you guessed it, lines and <code class="markup--code markup--p-code">glEnd</code> ends this context. Every two vertices we create in this context will be linked together as a line. We will use the <code class="markup--code markup--p-code">glVertex3f</code> function to make a vertex in 3 dimensions taking 3 floats. The first 2 floats are <em class="markup--em markup--p-em">x</em>,<em class="markup--em markup--p-em">y</em> coordinates on the scale of the size of the window (if your window is 400x400 and example for the first 2 values could be 100.0, 100.0, the <em class="markup--em markup--p-em">z</em> value is a value between -1 and 1 that represents depth. Let’s see what this looks like:</p><figure name="83b9" id="83b9" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/48e97a6ff4e58fe9e064d3c3cd64638d.js"></script></figure><p name="cfdf" id="cfdf" class="graf graf--p graf-after--figure">Should output a window like this:</p><figure name="85b3" id="85b3" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 549px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 78.4%;"></div><img class="graf-image" data-image-id="1*QNrLF9LevoScbGwvNhk4Xw.png" data-width="1286" data-height="1008" src="img/1_QNrLF9LevoScbGwvNhk4Xw.png"></div></figure><p name="696d" id="696d" class="graf graf--p graf-after--figure">Believe it or not this line is a 3D structure! There’s some caveats though; if you put a number outside the range [-1,1] for <em class="markup--em markup--p-em">z</em> the vertex and thus the line will not appear. Another caveat is that this <em class="markup--em markup--p-em">z</em> value isn’t always in [-1,1] but for now it is (I know that’s a bit dumb). This line is admittedly boring. Let’s spuce things up by making it an animation; we will make the line spin.</p><figure name="5ff4" id="5ff4" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/537f0ca3f6528d6b8278a58c5c2da3fc.js"></script></figure><p name="dfc0" id="dfc0" class="graf graf--p graf-after--figure">It should output an animation like a spinning wheel like so:</p><figure name="01c3" id="01c3" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/oq3PcBR6Stk?feature=oembed" width="640" height="480" frameborder="0" scrolling="no"></iframe></figure><p name="7fae" id="7fae" class="graf graf--p graf-after--figure">Let’s explain the code a bit. The <code class="markup--code markup--p-code">PointsInCircum</code> method (which I poached from stack overflow) gets all the points in a circle centered around 0. We will use it to generate the points which will connect with the center of the circle with a line. We get 20 of these points and convert them to a numpy array. This numpy array is now of the shape 20x2 where the 2 elements are <em class="markup--em markup--p-em">y</em> and <em class="markup--em markup--p-em">x</em> in that order. Ok so how did we get the window to redraw continuously? We used the <code class="markup--code markup--p-code">pyglet.clock.schedule(update_frame, 1/10)</code> function call. It calls the <code class="markup--code markup--p-code">update_frame</code> function every 1/10th of a second and then calls the <code class="markup--code markup--p-code">on_draw</code> event as well (this is done <a href="http://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/programming_guide/eventloop.html#overriding-the-default-idle-policy" data-href="http://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/programming_guide/eventloop.html#overriding-the-default-idle-policy" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">under the hood</a>). We are going to use the scheduler to increment and grab the next point in the circle and store it in a variable called frame, then we are going to tell <code class="markup--code markup--p-code">on_draw</code> to draw whatever point currently referenced by frame. This works because both <code class="markup--code markup--p-code">update_frame</code> and <code class="markup--code markup--p-code">on_draw</code> can see the <code class="markup--code markup--p-code">frame</code> variable. <code class="markup--code markup--p-code">glClear(GL_COLOR_BUFFER_BIT)</code> clears the ‘color buffer’ everytime the <code class="markup--code markup--p-code">on_draw</code> method is called. What is that? It’s an array that stores all the color pixels you see on your screen; <code class="markup--code markup--p-code">glClear</code> says to empty out a thing and <code class="markup--code markup--p-code">GL_COLOR_BUFFER_BIT</code> tells opengl which thing to empty. The bit is literally an index into a data structure which stores the list with all the colors on screen.</p><p name="4082" id="4082" class="graf graf--p graf-after--p">I went made a double for loop and plastered this wheel across the screen which ended up pretty cool. The quality is a bit bad at first but improves near the end:</p><figure name="d8e6" id="d8e6" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/HJ8mdp_i0nA?feature=oembed" width="640" height="480" frameborder="0" scrolling="no"></iframe></figure><p name="7fb0" id="7fb0" class="graf graf--p graf-after--figure">You can also make the rotation smoother by increasing <code class="markup--code markup--p-code">n=100</code> in <code class="markup--code markup--p-code">PointsInCircum:</code></p><figure name="e239" id="e239" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/lhHq8FSV78Q?feature=oembed" width="640" height="480" frameborder="0" scrolling="no"></iframe></figure><p name="f535" id="f535" class="graf graf--p graf-after--figure">This animation is pretty basic and if you were going to really do it you’d probably use something with a more friendly interface, like a sprite. Here’s some <a href="https://gamedev.stackexchange.com/questions/31296/2d-animation-example-in-pyglet-python-looping-through-2-images-sprites-every-x/51814" data-href="https://gamedev.stackexchange.com/questions/31296/2d-animation-example-in-pyglet-python-looping-through-2-images-sprites-every-x/51814" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">examples</a> for how you would probably make a real animation. If you are interested in learning about opengl you should <a href="https://medium.com/@yvanscher/an-introduction-to-shaders-in-opengl-c19a1376eda1" data-href="https://medium.com/@yvanscher/an-introduction-to-shaders-in-opengl-c19a1376eda1" class="markup--anchor markup--p-anchor" target="_blank">checkout my other post where I annotate a tutorial series on the basics</a>.</p><p name="37e7" id="37e7" class="graf graf--p graf-after--p graf--trailing">That’s it for this micro-tutorial! In the next one we will make 3D objects so that should be a lot more fun. Stay tuned! If you like machine learning, games, and graphics you should <a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">subscribe to my newsletter: <strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Generation Machine</em></strong></a>! Also <a href="https://twitter.com/yvanscher" data-href="https://twitter.com/yvanscher" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">follow me on twitter</a>. I’m always available for questions there so please ask them!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/1bd9f1721cc6"><time class="dt-published" datetime="2018-01-31T18:38:02.339Z">January 31, 2018</time></a>.</p><p><a href="https://medium.com/@yvanscher/opengl-and-pyglet-basics-1bd9f1721cc6" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

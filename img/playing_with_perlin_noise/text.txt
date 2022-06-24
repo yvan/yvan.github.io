@@ -1,0 +1,30 @@
+    <p>Perlin noise is a mathematical formula used to generate ‘realistic’ structures. It’s noise but unlike regular noise it has some coherent structure. You can think of perlin noise as multiple samples of a noisy field sampled at different resolutions and layered on top of each other. Here is regular noise vs. Perlin noise:</p>
+
+    <p>In the python noise module there are a few parameters that affect what you see when you generate your perlin noise:
+
+scale: number that determines at what distance to view the noisemap.
+
+octaves: the number of levels of detail you want you perlin noise to have.
+
+lacunarity: number that determines how much detail is added or removed at each octave (adjusts frequency).
+
+persistence: number that determines how much each octave contributes to the overall shape (adjusts amplitude).
+
+We won’t worry about scale too much, you can use it to zoom out (bigger scale) or in (smaller scale).
+
+Perlin noise combines multiple functions called ‘octaves’ to produce natural looking surfaces. Each octave adds a layer of detail to the surface. For example: octave 1 could be mountains, octave 2 could be boulders, octave 3 could be the rocks.
+
+Lacunarity of more than 1 means that each octave will increase its level of fine grained detail (increased frqeuency). Lacunarity of 1 means that each octave will have the sam level of detail. Lacunarity of less than one means that each octave will get smoother. The last two are usually undesirable so a lacunarity of 2 works quite well.
+
+Persistence determines how much each octave contributes to the overall structure of the noise map. If your persistence is 1 all octaves contribute equally. If you persistence is more than 1 successive octaves contribute more and you get something closer to regular noise (the regular noise image above is actually a perlin noise with a persistence of 5.0). A more default setting would be a persistence of less than 1.0 which will decrease the effect of later octaves.
+
+      Enough chatting though! Let’s run some experiments. First let’s start with default perlin noise, and its accompanying image:</p>
+    <p>The way this perlin noise looks in our script is a 2D array of values between -1 and 1. The values that are darker on the map are lower values, the values that are close to 1 are lighter. What I want to try next is assigning two colors to different ranges of values in this map to produce some terrain:</p>
+    <p>This terrain map is pretty neat; it has jagged coasts, beaches, and lots of water. while I have never observed natural terrain that looks like this if we look at any one part of the map it seems ‘realistic.’ Let’s take it a step further and add mountains and snow:</p>
+    <p>This is cool but this terrain pattern is clearly not natural. To make it more natural we will use a circular filter to get rid of all the preipheral perlin noise:</p>
+    <p>Here I was trying to create an island so I made a circular filter and then applied it to the color_world perlin noise array. What I ended up was a planet floating in an ocean. I changed the ocean color to black and it looks pretty cool! That said what I wanted was an island so let’s try again. This time we’re going to calculate a circular gradient and then apply that over the perlin noise as a filter.</p>
+    <p>I struggled a lot with this part. I’m sure there is a more efficient way to get the gradient like this but the above was what I came up with. I calculated a distance metric from the center of the map and then normalized, shrunk, and renomalized those distances to produce this spherical gradient. Again lighter means the value is closer to 1, darker colors are closer to 0. Next I apply this circular gradient to the perlin noise we created before.</p>
+    <p>This part was less tricky but still a pain. I multiply the perlin noise by the circle gradient and then I increase the contrast by multiplying positive (lighter values) by 20. Then I renormalize to make it 0–1 again.</p>
+    <p>This is really cool and it looks like a much more natural archipelago. I encourage you to try different shading methods and maybe randomly removing some sections. I’m going to change the threshold value and set it as threshold = 0.2. That will produce a smaller but more realistic archipelago as so:</p>
+    <p>There we are! We have a natural looking island archipelago! So now that we have our islands you may notice that no matter how often you rerun this script perlin noise will produce the same islands. To get new islands you can set the base parameter of the pnoise2 function to a random integer number, let’s try base=5, base=100:</p>
+    <p>So we started with some simple noise and ended up with a way to generate a realtively unlimited number of unique and natural looking archipelagos! I hope you enjoyed this post!</p>

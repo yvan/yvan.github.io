@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing">Writing</a></p> 
+  </div>
+  <div id="blog-content">
+    <p>October 2017</p>
+
+    <h1>Make a Pygame 1</h1>
+    <!-- <img src="http://yvanscher.com/img/make_a_pygame2/img1.png" target="_blank"/> -->
+
+
+    <p>If you are on Windows or Linux, the standard pygame installation will probably work just fine. If you have a mac, you’ll need to install homebrew and python3 via homebrew:</p>
+
+
+    <p>`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` and then `brew install python3`. This will install python3 at /usr/local/bin/python3. If you have anaconda you will need to use this full path to run this python install, then `/usr/local/bin/pip3 install pygame` and this will install pygame, and you can run: `/usr/local/bin/python3 game.py`</p>
+
+    <p><h2>Create a character and game loop.</h2></p>
+
+    <p>This should produce a game world where you can move left, right, up, and down and press the red exit button in the top left of the window to leave.</p>
+
+    <script src="https://gist.github.com/yvan/d6551ace488adfced53f35d87fa6293e.js"></script>
+
+    <p>Run the game with:</p>
+
+    `/usr/local/bin/python3 game.py`
+
+    <p>This should create a game with a popup window:</p>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img1.png" target="_blank"/>
+
+    <p>We have the blank world of the void. We have our wizard character (a 40x40 png). Even though it looks static in actuality the program of our game is running and re-rendering this world and our character every few miliseconds. Still, this game is not particularly interesting as we can’t move our character, look at a pretty map or do much of anything. Let’s change that in the next section. You can ctrl-c the program we are running on the terminal to exit this game.</p>
+
+    <p><h2>Registering events for your character.</h2></p>
+
+    <p>If you messed up the “Installing pygame” step events probably wont register on your mac. This could happen if you are using virtualenv or anaconda python. Again go back and install python3 and pygame as indicated above. In this section we are going to register arrow keypresses to make our character move around our empty world.</p>
+
+    <script src="https://gist.github.com/yvan/22ba58b9474590d8bda8e6417c45e1c6.js"></script>
+
+    <p>This should produce a game world where you can move left, right, up, and down and press the red exit button to in the top left of the window to leave, here is a video of that:</p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/d-bU10izkY8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>Even though we can now move in this world, there isn’t a whole lot there. Let’s fix that by creating an interesting map</p>
+
+    <p><h2>Let’s make the world a little more interesting by adding a map.</h2></p>
+
+    <p>Our map will be made of tiles, and each tile will be a resource in our game.</p>
+
+    <script src="https://gist.github.com/yvan/ed60896acf8be9260ed6c1ea36362e1f.js"></script>
+
+    <p>You should now have a pretty map of resources:</p>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img2.png" target="_blank"/>
+
+    <p>So you can now walk around, and we have a pretty map. Let’s add the ability to interact with this map in some way.</p>
+
+    <p><h2>Adding an inventory to keep track of your resources.</h2></p>
+
+    <p>This section will add an inventory and a way to pick up resources using the space key.</p>
+
+    <script src="https://gist.github.com/yvan/b14962d3e8c2aea1db869f375bbe48bd.js"></script>
+
+    <p>You should now be able to move, pick up resources and see them increasing in your inventory. You may have noticed it is possible to pick up an infinite amount of dirt. Here is an image of me cleaning out a corner of the map, and you can see the resources in my inventory:</p>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img3.png" target="_blank"/>
+
+    <p>You may notice that there are resources in your inventory that are not on the map. That’s because these resources need to be crafted. In the next section, we will design a crafting system.</p>
+
+    <p><h2>Adding a crafting system.</h2></p>
+
+    <p>Our crafting system will work because if you press the number key corresponding to the resource, press the mouse button, and have the ingredients in your inventory. It will craft that resource. For example, to create fire, we need one piece of wood. So pressing the ‘6’ key and the left mouse click and having one wood in our inventory will create one fire. This section will also add a way to place resources down on the ground (swapping whatever is on the ground into our inventory). To place a resource down, we will press the number key representing that resource, so to put down the fire we crafted, we press ‘6.’</p>
+
+    <script src="https://gist.github.com/yvan/c608dcdef372c58f4feb1cbc8bf101e9.js"></script>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img4.png" target="_blank"/>
+
+    <p>As you can see, I’ve created a moat of water with a stone wall and barrier of fire around my cache of precious glass. We wouldn’t want anyone to steal it. Experiment with this and build stuff if you want. Just remember our game has no saving.</p>
+
+    <p><h2>Adding ambient features to your world.</h2></p>
+
+    <p>To make our world a little more immersive, we will add a cloud and some birds to the environment. The clouds will move across the map and obscure vision (adding a small element of challenge as you are trying to build). In the last section, you may have noticed that cloud was listed as a resource and in the textures dictionary. While strictly not a resource, it is easier for us to keep using our current way of looking up textures, so we’ll keep it this way.</p>
+
+    <script src="https://gist.github.com/yvan/4a87eb87092f93cfea6d721dc1e71b3f.js"></script>
+
+    <p>Typically, we would use something called a sprite for the bird, but I wanted to keep this tutorial simple, so I made my little method that tells us which bird image to animate. If you wait long enough now, you will see two clouds and a bird adding a little bit of life to our game. Check it out:</p>
+
+    <img src="http://yvanscher.com/img/make_a_pygame1/img5.png" target="_blank"/>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/iVEyEufnPac" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p><h2>Conclusion</h2></p>
+
+    <p>In a future tutorial I may go over saving games, adding goals to the game, adding enemies that work against you as you try to accomplish your goals. If you liked this tutorial, don’t forget to leave some claps, and you can signup to see more at my newsletter here. All the steps in this post and resources I used to make this game are here on github.</p>
+
+    <p>If you enjoyed this post, be sure to signup for more.</p>
+
+    <p>
+    <!-- Begin Mailchimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://hyperclone.us16.list-manage.com/subscribe/post?u=00b2cee03ebf76d80c40ce951&amp;id=9e611a04cd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<div id="mc_embed_signup_scroll">
+	  <p>Signup For More</p>
+	  <div class="mc-field-group">
+	    <!-- <label for="mce-EMAIL">Email</label> -->
+	    <input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+	  </div>
+	  <div id="mce-responses" class="clear">
+	    <div class="response" id="mce-error-response" style="display:none"></div>
+	    <div class="response" id="mce-success-response" style="display:none"></div>
+	  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_00b2cee03ebf76d80c40ce951_9e611a04cd" tabindex="-1" value=""></div>
+	  <div class="clear">
+	    <input type="submit" value="Signup" name="subscribe" id="mc-embedded-subscribe" class="button">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+    </p>
+  </div>
+</body>
+</html>

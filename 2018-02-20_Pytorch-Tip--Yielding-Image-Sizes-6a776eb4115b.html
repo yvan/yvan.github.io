@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Pytorch Tip: Yielding Image Sizes</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Pytorch Tip: Yielding Image Sizes</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Need to get image sizes using torchvision datasets?
+</section>
+<section data-field="body" class="e-content">
+<section name="fa6b" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="fd2f" id="fd2f" class="graf graf--h3 graf--leading graf--title">Pytorch Tip: Yielding Image Sizes</h3><p name="8460" id="8460" class="graf graf--p graf-after--h3">Need to get image sizes using torchvision datasets?</p><p name="56e7" id="56e7" class="graf graf--p graf-after--p">If you try to load images with torchvision you may get an error like this:</p><figure name="86ae" id="86ae" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/af55045de3fd25f8047b21a8c36b8156.js"></script></figure><p name="e493" id="e493" class="graf graf--p graf-after--figure">May throw and give you an error like this at the bottom of the stack trace:</p><pre name="8f4e" id="8f4e" class="graf graf--pre graf-after--p">RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 256 and 519 in dimension 2 at /opt/conda/conda-bld/pytorch_1518243271935/work/torch/lib/TH/generic/THTensorMath.c:2897</pre><p name="7567" id="7567" class="graf graf--p graf-after--pre">Basically because each batch is a single tensor (matrix) and pytorch is saying that all the images in a batch need to be the same size. This makes sense. If you had a 2D matrix row 1 could not have 5 columns if row 2 has 7 columns. Every row in a matrix has to have the same number of columns. If you really want to get the sizes using pytorch you can just set a batch_size of 1. That way each image will be its own tensor and you can record/store the sizes. Like so:</p><figure name="83e2" id="83e2" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/0afa092eee621d70f76185fa62bc274d.js"></script></figure><p name="007a" id="007a" class="graf graf--p graf-after--figure">I find this useful because pytorch’s image loader seems to load things in a slightly different order than if i just read the files off disk (not to mention its helpful if you are shuffling via a fixed random seed) and this helps me keep my data in order for when I want to check my predictions. It will output something like this:</p><pre name="5598" id="5598" class="graf graf--pre graf-after--p">torch.Size([1, 3, 256, 256])<br>torch.Size([1, 3, 519, 253])<br>torch.Size([1, 3, 256, 256])<br>torch.Size([1, 3, 256, 256])<br>torch.Size([1, 3, 256, 256])<br>torch.Size([1, 3, 512, 680])</pre><p name="e59c" id="e59c" class="graf graf--p graf-after--pre">As you can see images of many sizes using a pytorch dataset!</p><p name="c7fd" id="c7fd" class="graf graf--p graf-after--p graf--trailing">That’s all for this little tip. If you like machine learning I have a newsletter that covers machine learning and video games called <a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><em class="markup--em markup--p-em">Generation Machine</em></a><em class="markup--em markup--p-em">. </em>Be sure to check it out!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/6a776eb4115b"><time class="dt-published" datetime="2018-02-20T16:06:38.058Z">February 20, 2018</time></a>.</p><p><a href="https://medium.com/@yvanscher/pytorch-tip-yielding-image-sizes-6a776eb4115b" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

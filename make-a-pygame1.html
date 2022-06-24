@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yvan</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head> 
+<body id="text">
+<p>Make a game with pygame 1</p>
+
+<h3>Installing pygame</h3>
+
+If you are on windows or linux the regular pygame installation will probably work just fine. If you have a mac however you'll need to follow these steps. Install homebrew and python3 via homebrew:
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install python3
+
+this will install python3 at /usr/local/bin/python3. If you have anaconda you will need to use this full path to run this python install. Install pygame with:
+
+/usr/local/bin/pip3 install pygame
+
+this will install pygame and you can run something like:
+
+/usr/local/bin/python3 game.py
+
+There are other ways to do this for example using venv with homebrew python. I'm sticking with this as it works and believe me you don't want to spend 5 hrs reading stack posts about why your game can't register a key; this is easier and will get you going.
+You can access images and resources I used to make this game are here on github.
+Create a character and a game loop.
+Create a file called game.py:
+
+Run the game with:
+/usr/local/bin/python3 game.py
+This should create a game that looks like this in a little popup window:
+We have the blank world of the void. We have our wizard character (a 40x40 png). Even though it looks static in actuality the program of our game is running and re-rendering this world and our character every few miliseconds. Still, this game is not particularly interesting as we can't move our character, look at a pretty map or do much of anything. Let's change that in the next section. You can ctrl-c the program we are running on the terminal to exit this game.
+Registering events for your character.
+If you messed up the "Installing pygame" step events probably wont register on your mac. This could happen if you are using virtualenv or anaconda python. Again go back and install python3 and pygame as indicated above. In this section we are going to register arrow keypresses to make our character move around our empty world.
+
+This should produce a game world where you can move left, right, up, and down and press the red exit button to in the top left of the window to leave, here is a video of that:
+
+Even though we can now move in this world there isn't a whole lot there. Let's fix that by creating an interesting map.
+Let's make the world a little more interesting by adding a map.
+Our map will be made of tiles and each tile will be a resource in our game.
+
+You should now have a pretty map of resources:
+So you can now walk around and we have a pretty map. Let's add the ability to interact with this map in some way.
+Adding an inventory to keep track of your resources.
+In this section we will add an inventory and a way to pick up resources using the space key.
+
+You should now be able to move, pick up resources and see them increasing in your inventory. You may have noticed it is possible to pick up an infinite amount of dirt. Although this was not totally intended it seems to work just fine, so that's cool. Here is an image of me cleaning out a corner of the map and you can see the resources in my inventory:
+You may notice that there are resources in your inventory that are not on the map. That's because these resouces need to be crafted. In the next section we will design a crafting system.
+Adding a crafting system.
+
+The way our crafting system will work is that if you press the number key corresponding to the resource and you press the mouse button and you have the ingredients in your inventory it will craft that resource. So for example to create fire we need 1 wood. Pressing the '6' key and the left mouse click and having 1 wood in our inventory will create 1 fire. In this section we will also add a way to place resources down on the ground (swapping whatever is there on the ground into our inventory). To place a resource down we will press the number key representing that resource so to put down the fire we crafted we just press '6.'
+
+As you can see I've created a moat of water with a stone wall and barrier of fire around my cache of precious glass. We wouldn't anyone to steal it. Experiment with this and build stuff if you want, just remember our game has no saving.
+Adding ambient features to your world.
+To make our world a little more immersive we're going to add a cloud and some birds to the environment. The clouds will move across the map and obscure vision (adding a small element of challenge as you are trying to build). You may have noticed in the last section that cloud was actually listed as a resource and in the textures dictionary. While stritcly not a resource it is easier for us to keep using our current method of looking up textures so we'll keep it this way.
+
+
+
+Normally for the bird we would use something called a sprite but I wanted to keep this tutorial simple so i made my own little method that tells us which bird image to animate. If you wait long enough now you will see 2 clouds and a bird adding a little bit of life to our game. Check it out:
+
+
+
+Conclusion
+In a future tutorial I may go over saving games, adding goals to the game, adding enemies that work against you as you try to accomplish your goals. If you liked this tutorial don't forget to leave some claps and you can signup to see more at my newsletter here.
+This tutorial is based on another tutorial (its actually gone now!). I followed the same general path but wanted to move in a different order and keep the code a little more consistent as well as address common issues in pygame. All the steps in this post and resources I used to make this game are here on github.
+Find part 2 of this tutorial here.
+</body>
+</html>

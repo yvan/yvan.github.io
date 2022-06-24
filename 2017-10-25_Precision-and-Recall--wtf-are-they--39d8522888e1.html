@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Precision and Recall, wtf are they?</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Precision and Recall, wtf are they?</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Read this and you will understand these concepts.
+</section>
+<section data-field="body" class="e-content">
+<section name="38c8" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="f5a0" id="f5a0" class="graf graf--h3 graf--leading graf--title">Precision and Recall, wtf are they?</h3><p name="b68e" id="b68e" class="graf graf--p graf-after--h3">Read this and you will understand these concepts.</p><p name="1791" id="1791" class="graf graf--p graf-after--p">As you start to do more stats and machine learning you start to run into terms that seem to be used often but not very well explained. Two such concepts: <strong class="markup--strong markup--p-strong">precision</strong> and <strong class="markup--strong markup--p-strong">recall</strong> are two different ways to measure how good your algorithm is. An algorithm that has a high value for both is very good, an algorithm that is good at one or the other can be useful but it’s important to understand when to use it. I am going to explain precision and recall in this post. If you read through will understand these concepts and how they are applied. Before diving in let’s talk about what these terms mean.</p><h4 name="45ed" id="45ed" class="graf graf--h4 graf-after--p">Recall — Can I make a model that can find all the sick people?</h4><p name="6f01" id="6f01" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Recall</em></strong> is how good your algorithm is at matching or finding all the data points with a particular feature. It is as a value measured 0–1.0. So if you are quarantining patients that have the flu an algorithm with a good recall would be able to quarantine most of the people who have the flu in the population. Perfect recall would quarantine every single sick person. Recall does not care how many healthy people your algorithm also mistakenly quarantined. It only asks: “How close did we come to quarantining every person who had the flu?”</p><h4 name="5cc0" id="5cc0" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Precision — Can I make model that can find only sick people?</strong></h4><p name="b6c8" id="b6c8" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Precision</em></strong> is how good your algorithm is at getting only the right stuff. It is as a value measured 0–1.0. So an algorithm with good precision would quarantine a group of people and most of the people it quarantined would have the flu. Precision does not care how many sick people we missed. It only asks: “Did everyone we quarantined have the flu?”</p><p name="89ab" id="89ab" class="graf graf--p graf-after--p">We’ll have a model that tries to identify which people have the flu. Once we have our model we will evaluate this model using precision and recall.</p><p name="c047" id="c047" class="graf graf--p graf-after--p">Our model will fall into 1 of 4 categories:</p><ol class="postList"><li name="efd6" id="efd6" class="graf graf--li graf-after--p"><em class="markup--em markup--li-em">low recall</em>, <em class="markup--em markup--li-em">low precision</em></li><li name="3174" id="3174" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">high recall</strong>, <em class="markup--em markup--li-em">low precision</em></li><li name="e4e8" id="e4e8" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">low recall</em>,<strong class="markup--strong markup--li-strong"><em class="markup--em markup--li-em"> </em>high precision</strong></li><li name="b35b" id="b35b" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">high recall</strong>, <strong class="markup--strong markup--li-strong">high precision</strong></li></ol><h4 name="1939" id="1939" class="graf graf--h4 graf-after--li">Category 1: <em class="markup--em markup--h4-em">low recall</em>, <em class="markup--em markup--h4-em">low precision</em></h4><p name="2d3b" id="2d3b" class="graf graf--p graf-after--h4">If you have both a low precision and recall your algorithm is probably underfitting the data or the wrong algorithm for this task. You could represent your algorithm with the venn diagram below. Here the green circle (positives) is people who have the flu and the red circle is things our algorithm said have the flu (predictions). White space outside the green circle is people who do not have the flu (negatives).</p><p name="16a4" id="16a4" class="graf graf--p graf-after--p">Your algorithm isn’t good at finding the people who have the flu, small green-red overlap (bad recall), and among the stuff it chose, the red circle, it picked tons of people who didn’t have the flu (bad precision).</p><figure name="1471" id="1471" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 540px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 77.2%;"></div><img class="graf-image" data-image-id="1*4laqQDS520n1JNqd2f8uMw.png" data-width="1966" data-height="1518" src="img/1_4laqQDS520n1JNqd2f8uMw.png"></div></figure><h4 name="3045" id="3045" class="graf graf--h4 graf-after--figure">Category 2: high recall, low precision</h4><p name="0f26" id="0f26" class="graf graf--p graf-after--h4">This scenario your model is casting a wide net (hence the bigger red circle) and getting most of the things its looking for, big green-red overlap, (good recall) but it’s probably grabbing a lot of stuff it’s not supposed to, big red-white space overlap (bad precision).</p><figure name="0924" id="0924" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 539px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 77%;"></div><img class="graf-image" data-image-id="1*g3hhbaUmrAf8Z8u9YXboxQ.png" data-width="1960" data-height="1510" data-is-featured="true" src="img/1_g3hhbaUmrAf8Z8u9YXboxQ.png"></div></figure><h4 name="6245" id="6245" class="graf graf--h4 graf-after--figure">Category 3: low recall, high precision</h4><p name="a45b" id="a45b" class="graf graf--p graf-after--h4">Your model is casting a small net and missing most of the things it’s looking for but among the things it has selected most of them are correct. The green-red overalp is small (bad recall). The red-white overlap is also small (good precision).</p><figure name="7545" id="7545" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 542px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 77.4%;"></div><img class="graf-image" data-image-id="1*RRsf3jTQHp7-pIEJzoMUOg.png" data-width="1964" data-height="1520" src="img/1_RRsf3jTQHp7-pIEJzoMUOg.png"></div></figure><h4 name="d8d5" id="d8d5" class="graf graf--h4 graf-after--figure">Category 4: high recall, high precision</h4><p name="b053" id="b053" class="graf graf--p graf-after--h4">You can see that the predicitons our algorithm made and the actual number of people who have the flu has a high overlap (high green-red overlap, high recall). We also have very few people that are not sick (rid-white space) that our algorithm said had the flu (high precision). This is the holy grail right here, an algorithm that can find all the sick people without also grabbing too many healthy people.</p><figure name="d504" id="d504" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 538px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 76.8%;"></div><img class="graf-image" data-image-id="1*9m-VDcC4XFM5qJzlFZ2Vog.png" data-width="1974" data-height="1516" src="img/1_9m-VDcC4XFM5qJzlFZ2Vog.png"></div></figure><h4 name="7b24" id="7b24" class="graf graf--h4 graf-after--figure">Math</h4><p name="4554" id="4554" class="graf graf--p graf-after--h4">You can see the math of precision and recall below, FP (false positive, predicted flu, but was healthy), TP (true positive, predicted flu, had the flu), positive (has the flu), FN (false negative, predicted healthy, had the flu). Recall punishes you for missing people who have the flu (increasing FN). Precision punishes you for for matching healthy people and saying they have the flu (increasing FP).</p><figure name="fff7" id="fff7" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 302px; max-height: 152px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 50.3%;"></div><img class="graf-image" data-image-id="1*r4rcqWq-b_uGeb_FipsO7A.png" data-width="302" data-height="152" src="img/1_r4rcqWq-b_uGeb_FipsO7A.png"></div></figure><h4 name="d8c6" id="d8c6" class="graf graf--h4 graf-after--figure">Example</h4><p name="ca7d" id="ca7d" class="graf graf--p graf-after--h4">The united states justice system tries to have a high precision and thus ends up having lower recall. The burden of proof is on the government; people are innocent until proven guilty. Because fo a lack of evidence many criminals will not be convicted (low recall) but at least the govrenment can be sure that the people it is imprisoning are indeed guilty (high precision).</p><p name="27d2" id="27d2" class="graf graf--p graf-after--p">Inspections for airplane Engines have a high (or perfect) recall and low precision. You want to make sure you get every single defective engine, it’s ok to grab many working engines as well but it is critical that every defective engine get caught, so an airplane engine does not fail midflight.</p><h4 name="4ec3" id="4ec3" class="graf graf--h4 graf-after--p">Important concepts</h4><p name="a586" id="a586" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Precision</em></strong> and <strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Recall</em></strong> are not opposites. It is possible to have both but it can be hard to produce a model that does this. In practice you can usually turn knobs on your model to make it more or less relaxed in its predictions, which will create a tradeoff between precision and recall.</p><p name="c096" id="c096" class="graf graf--p graf-after--p">You may also have noticed that the size of the prediction set your algorithm makes seems to affect precision and recall. By making fewer positive predictions you can get your precision higher By making more positive predictions you can get your recall higher. Either metric on its own can be abused. That is why it is important to report both these metrics, having both together gives you a picture of how good your algorithm is at 1 — finding the stuff (recall), 2 — being correct about the stuff it finds (precision).</p><p name="816f" id="816f" class="graf graf--p graf-after--p graf--trailing">You should now have a pretty solid conceptual grasp of what precision and recall are and you should be ready to apply them to your algorithms or models to evaluate their quality. If you enjoyed this blog post you can <a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">signup for my newsletter here; I send it out once a month.</a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/39d8522888e1"><time class="dt-published" datetime="2017-10-25T18:31:18.340Z">October 25, 2017</time></a>.</p><p><a href="https://medium.com/@yvanscher/precision-and-recall-wtf-are-they-39d8522888e1" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>How to make a game with Pygame — Part 2</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">How to make a game with Pygame — Part 2</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Adding objectives to our game.
+</section>
+<section data-field="body" class="e-content">
+<section name="c26e" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="ecda" id="ecda" class="graf graf--h3 graf--leading graf--title">How to make a game with Pygame — Part 2</h3><p name="2726" id="2726" class="graf graf--p graf-after--h3">Adding objectives to our game.</p><figure name="418b" id="418b" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 511px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 73%;"></div><img class="graf-image" data-image-id="1*kogdu-SJB91uLEtfYZEF8w.png" data-width="1197" data-height="874" src="img/1_kogdu-SJB91uLEtfYZEF8w.png"></div><figcaption class="imageCaption">The end result will look something like this</figcaption></figure><p name="573e" id="573e" class="graf graf--p graf-after--figure">A few months ago I wrote a <a href="https://medium.com/@yvanscher/how-to-make-a-game-with-pygame-fc85159ae354" data-href="https://medium.com/@yvanscher/how-to-make-a-game-with-pygame-fc85159ae354" class="markup--anchor markup--p-anchor" target="_blank">post</a> that goes over how to make a game with pygame. Please checkout that post first as it lays the foundation for this one. The game was a sandbox and lacked objectives but you could collect raw materials, craft, and build things. In this post we will add an objective to our game that creates something to build towards.</p><h4 name="29de" id="29de" class="graf graf--h4 graf-after--p">What is our objective?</h4><p name="a053" id="a053" class="graf graf--p graf-after--h4">Before that we need to ask: <strong class="markup--strong markup--p-strong">what is the point of our game?</strong> If you want to make a good game it should have a single point. For example <a href="https://store.steampowered.com/app/48700/Mount__Blade_Warband/" data-href="https://store.steampowered.com/app/48700/Mount__Blade_Warband/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Mount and Blade</a>, a great medieval sandbox rpg, is an open world where you can choose your goals, yet it still has a single point: “advance and develop your character.” There are many ways to accomplish this single goal: fighting, trading, tournaments, doing quests, ruling fiefs, founding businesses, raiding. The point of our game is to build structures.<strong class="markup--strong markup--p-strong"> Our objective will provide guidelines for each structure to build. </strong>We can then add a story or measurement system. “You are a wizard stonemason who is hired to build vaults. You need to get your vault as close as possible to the guideline structure to increase your score.”</p><h4 name="27a3" id="27a3" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">What is our mechanic?</strong></h4><p name="d0a8" id="d0a8" class="graf graf--p graf-after--h4">The mechanic is the actual things the player does to achieve our objective. I’m thinking the mechanic will be a secondary view where you can press a button and see what the structure should look like and then you can build it. The clouds we added in part 1 obscure vision and also increase difficulty a bit.</p><h4 name="9e43" id="9e43" class="graf graf--h4 graf-after--p">We are adding to our game</h4><p name="1bda" id="1bda" class="graf graf--p graf-after--h4">1- saving the game state so a game can be loaded with prior progress and we can save/load objectives</p><p name="5d7c" id="5d7c" class="graf graf--p graf-after--p">2- an objective with visualization mechanic to build a specific structure on the map</p><p name="55bd" id="55bd" class="graf graf--p graf-after--p">3- a scoring mechanism to rate the end result</p><h4 name="b1c1" id="b1c1" class="graf graf--h4 graf-after--p">Adding saving</h4><p name="1f1c" id="1f1c" class="graf graf--p graf-after--h4">First we are going to add saving to the game. In its most basic form saving the game state and loading it again just involves storing the locations of everything on screen, our character, and our inventory, and populating these values from this save when we load up the game. So the way I’ve implemented saving is to make everything in the game world that I want to save a value inside a python dictionary called <code class="markup--code markup--p-code">game_state</code> then I save this dictionary to a file. Below you can see a video of me saving my game then loading that save.</p><figure name="5e93" id="5e93" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/W0VStNEoPKY?feature=oembed" width="700" height="393" frameborder="0" scrolling="no"></iframe></figure><p name="291f" id="291f" class="graf graf--p graf-after--figure">To save our game you can just press the ‘s’ key and it will automatically create a file called save-file-DATE.save which contains all the info needed to reload our game. Now whenever we have a new feature we want to be save-able we just make sure it is part of the <code class="markup--code markup--p-code">game_state</code> dictionary in our code and it will be saved.</p><p name="45fd" id="45fd" class="graf graf--p graf-after--p">Here is our updated code; as usual new parts of the code will have comments, older already explained parts will not.:</p><figure name="a0a3" id="a0a3" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/a120b42e42b114772e1746f08cbb9ca3.js"></script></figure><h4 name="eefc" id="eefc" class="graf graf--h4 graf-after--figure">Adding the objective</h4><p name="6eda" id="6eda" class="graf graf--p graf-after--h4">We are going to use our save functionality here to make our objective. We are going to make 2 world states that the player should work towards. These world states are pretty designs/layouts for our little game. The goal is to get the world as close as possible to this world state. So I will create these states and save my game and then load them into a new mechanic we will call ‘future sight.’ If we press/hold ‘f’ we will be able to see the structure we need to make superimposed onto the map. Below you can see me examining an objective.</p><figure name="8333" id="8333" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/PgQHAaRh4Ug?feature=oembed" width="700" height="393" frameborder="0" scrolling="no"></iframe></figure><p name="f1da" id="f1da" class="graf graf--p graf-after--figure">You can create your own objectives by making a structure then pressing the ‘o’ key which will save just the <code class="markup--code markup--p-code">tilemap</code> from the <code class="markup--code markup--p-code">game_state</code> as an objective file. Then to use that as the objective for a level you have to load it like I did on the command line. Here is the code:</p><figure name="fd5b" id="fd5b" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/6b0c0ecb4f473426f48d9736603e88cc.js"></script></figure><h4 name="7316" id="7316" class="graf graf--h4 graf-after--figure">Adding scoring</h4><p name="fafa" id="fafa" class="graf graf--p graf-after--h4">You may notice that we have no way to score the end product. What we will do is create a yellow outline in the objective view (the view that shows our goal structure) and this yellow outline will denote the scoring area. To score our game we press ‘e’. This gives us a score based on how close our structure is to the objective. I updated our function that saves objectives to now save the <code class="markup--code markup--p-code">tilemap</code> and an empty rectangle called <code class="markup--code markup--p-code">scoring_rect</code>. To add a rectangle you can update the values in the objective file under the key <code class="markup--code markup--p-code">scoring_rect</code>. The values are in a list and there should only be 4 (x,y,width,height of the rectangle). You can open the objective file in any plain text editor and make whatever scoring area you want. Here is a video of me attempting to build this objective then scoring it with our new scoring function. As you can see I score it several times going eventually to a score of 81. This video is a bit longer, feel free to watch it on a faster speed.</p><figure name="c8fc" id="c8fc" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/PrjWD9gqoVg?feature=oembed" width="700" height="393" frameborder="0" scrolling="no"></iframe></figure><p name="4819" id="4819" class="graf graf--p graf-after--figure">Notice I am constantly checking the objective with ‘f’ to see what I should be building.</p><p name="cae6" id="cae6" class="graf graf--p graf-after--p">Here is the code:</p><figure name="1bc4" id="1bc4" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/f4dc6d7a843a6aff5266905b5ef008c6.js"></script></figure><h4 name="cc87" id="cc87" class="graf graf--h4 graf-after--figure">Conclusion</h4><p name="84e1" id="84e1" class="graf graf--p graf-after--h4">The complete code, including some saves and objective files, can be found here:</p><p name="18a4" id="18a4" class="graf graf--p graf-after--p"><a href="https://github.com/yvan/nbsblogs/tree/master/howtogame_2" data-href="https://github.com/yvan/nbsblogs/tree/master/howtogame_2" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://github.com/yvan/nbsblogs/tree/master/howtogame_2</a></p><p name="ce2a" id="ce2a" class="graf graf--p graf-after--p">In this post we added saving and we added an objective to our game. To make the game a little harder we can add a time limit or we can add a small character who disrupts/moves your blocks around that you have to chase off. I will leave these as an exercise for the reader. If you enjoyed this post be sure to checkout my newsletter <a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Generation Machine</em></strong></a>.</p><p name="b9b6" id="b9b6" class="graf graf--p graf-after--p graf--trailing">As always have a good day.</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/89b22a1284b4"><time class="dt-published" datetime="2018-08-25T23:04:58.747Z">August 25, 2018</time></a>.</p><p><a href="https://medium.com/@yvanscher/how-to-make-a-game-with-pygame-part-2-89b22a1284b4" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

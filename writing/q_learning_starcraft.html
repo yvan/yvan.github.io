@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing">Writing</a></p> 
+  </div>
+  <div id="blog-content">
+    <p>Jan 2018</p>
+
+    <h1>Q Learning Starcraft</h1>
+
+    <img src="http://yvanscher.com/img/q_learning_starcraft/img0.jpeg" target="_blank"/>
+
+    <p>To make an AI for a game you need:
+      1 — The AI logic, whether this is scripted behavior or artificial intelligence.
+      2 — To convert your game world into something your ai can understand and act upon (API-ifying your game).
+      This post aims to show you the methods for building AL logic, from scripted behavior to methods that can learn almost any task. This should be considered an intro post for those with some programming skills to get into bot building. We will build an AI that can play a Starcraft II minigame. We’re going to use python, numpy, pysc2. Let’s go!</p>
+
+    <p><h2>Setup pysc2</h2></p>
+
+    <p>If you want to make a game agent, you need to create an interface/api for your game that an AI can use to see, play, and take actions in your game world. We are going to use Starcraft II, specifically an environment released by deepmind and google called pysc2. First we need to install Starcraft II (it’s free); I’m using linux so:</p>
+
+    <script src="https://gist.github.com/yvan/6b1caa11fb144041663fd24f8189d235.js"></script>
+
+    <p>Make sure you get version 3.17 of the game as newer versions don’t seem to work with some of the pysc2 functions (see run_configs/platforms). It takes about 7GB of space once unzipped, and to unzip the password is ‘iagreetotheeula’. I had some trouble getting the 3D view to render on ubuntu.</p>
+
+    <p>If you use a mac make sure to keep the game installed in the default location (~) and create ‘Maps’, ‘Replays’ folders in the main folder. Use the installer. Now let’s insall pysc2 and pytorch:</p>
+
+    <script src="https://gist.github.com/yvan/8fec55a30939890af2c062181a2991e1.js"></script>
+
+    <p>Now we need to get the sc2 maps we will use as a playground for our agent:</p>
+
+    <p><h2>Get the <a href="https://github.com/deepmind/pysc2/releases/download/v1.2/mini_games.zip">mini games</a> maps at that link.</h2></p>
+    <p>For some reason the mini game zip file on pysc2’s github didn’t work on linux. So I unzipped it on my mac and just moved it to my linux machine. Put the mini_games folder into the `Maps` folder in your StarcraftII Installation folder. The minigame maps actually come with pysc2 but who knows if deepmind will continue to do that. Ok now we have all the software and maps let’s program our first agent and examine the details of the pysc2 environment.</p>
+
+    <p><h2>A Implementing a random agent</h2></p>
+
+    <p>The AI we are going to make is going to be playing the move to beacon game. Our AI will control a marine (small combat unit) and move it around to get to the beacon.</p>
+
+    <p>I’m going to make a simple agent that can interact with this environment. It’s going to move around the map randomly:</p>
+
+    <script src="https://gist.github.com/yvan/95cf110f185de3d05774101910bfa551.js"></script>
+    <p>Here is a video of the above code running; the agent moves randomy around the map:</p>
+
+    <script src="https://gist.github.com/yvan/5e38988cdb0700feedda6a936aa874ee.js"></script>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/t37M0wvg9V8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>The feature maps look like this:</p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/aQFD9jWR_b4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>Nothing crazy happens here. You can see the main view with a marine (green) and the beacon (grey blue). The marine just moves around randomly like we told it to. The right part of the screen are all the different views our bot can see. The vary from unit types on the screen, to terrain height maps. To see more code/explanations for this section please see this notebook.</p>
+
+    <p>Another example of feature layers with more readable text:</p>
+
+    <img src="http://yvanscher.com/img/q_learning_starcraft/img1.png" target="_blank"/>
+
+    <p><h2>Implementing a scripted AI</h2></p>
+
+    <p>Now we want to do something a bit better than random. In the move to beacon minigame the goal is to move to the beacon. We’ll script a bot that does this:</p>
+
+    <script src="https://gist.github.com/yvan/a7fdd3e3315438642d902de7e555f646.js"></script>
+
+    <p>Here is a video of this bot playing:</p>
+
+    <script src="https://gist.github.com/yvan/10907ebc4be5b16ab8ffccc267dd293c.js"></script>
+    <p>You can then view the replay in the Starcraft II game client:</p>
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/vbsM3koeiVQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>As you can see the scripted AI plays the beacon game and moves the marine to the beacon. This scripted bot gets an average reward of 25 per episode after running for 105 episodes. This reward is a reflection of how good our bot is at reaching the becaon before the mingame timer is up (120 sec). Any AI we develop should be at least as good as this scripted bot, so a mean score of 25 once trained. Next we will implement an actual AI (one that learns how to play) using reinforcement learning.</p>
+
+    <p><h2>Implementing a Q Learning AI</h2></p>
+
+    <p>This method is a variant of something called ‘Q Learning’ that tries to learn a value called ‘quality’ for every state in the game world and attributes higher quality to states that can lead to more rewards. We create a table (called a Qtable) with all possible states of our game world on the y axis and all possible actions on the x axis. The quality values are stored in this table and tell us what action to take in any possible state. Here is an example of a Qtable:</p>
+
+    <img src="http://yvanscher.com/img/q_learning_starcraft/img2.png" target="_blank"/>
+
+    <p>So when it has the marine selected but its not at the beacon, state=(1, 0), our agent learns that moving to the beacon has the highest value (action at index 3) compared to other actions in the same state. When it doesnt have the marine selected and its not at the beacon, state=(0,0), our agent learns that select the marine has the highest value (action at index 1). When it is one the beacon and it has the marine selected, state=(1,1), doing nothing is valuable.
+      When we update the Q Table in the update_qtable function we’re following this formula:</p>
+
+    <img src="http://yvanscher.com/img/q_learning_starcraft/img3.gif" target="_blank"/>
+
+    <p>It basically says ‘take our estimate of the reward of taking an action and compare it against actually taking the action.’ Then take this difference and adjust our Q values to be a little less wrong. Our AI will take state information and spit out an action to take. I‘ve simplified this world state and the actions to make it easier to learn the Q table and keep the code concise. Instead of hardcoding the logic to always move to the beacon we give our agent a choice. We gave it 6 things it can do:</p>
+    <p>`_NO_OP` — do nothing</p>
+    <p>`_SELECT_ARMY` — select the marine</p>
+    <p>`__SELECT_POINT` — deselect the marine</p>
+    <p>`_MOVE_SCREEN` — move to the beacon</p>
+    <p>`_MOVERAND` — move to a random point that is not the beacon</p>
+    <p>`_MOVE_MIDDLE` — move to a point that is in the middle of the map</p>
+    <p>Here is our Q table code for a pretrained agent:</p>
+
+    <script src="https://gist.github.com/yvan/1010d04115939056c40ae8b1ce18bce2.js"></script>
+
+    <p>Run this agent with pretrained code by downloading the two files (agent3_qtable.npy, agent3_states.npy):</p>
+
+    <script src="https://gist.github.com/yvan/564d890d3a1856aa85d18ffdfaeb8839.js"></script>
+
+    <p>This AI can match the reward of 25 per episode our scripted AI can get once it is trained. It tries a lot of different movements around the map and noticed that in states where the marine and beacon positions are on top of each other it gets a reward. It then tries to take actions in every state that lead to this outcome to maximize reward. Here is a video of this AI playing early on:</p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/hsHbpk7n8WU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>Here is a video once it learns that moving to the beacon provides a reward:</p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/k7yUiPlt96U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>Conclusion and Future Posts</p>
+    <p>In this post I wanted to show you three types of programmed AI behavior, random, scripted, and Q learning agent.
+      As Martin Anward of Paradox development says: “Machine learning for complex games is mostly science fiction at this point in time.” I agree with Martin on several of his points. Still I think there’s potential for machine learning in games. The rest of the thread is how to make a good AI using a weighted lists; neural nets are the same thing as a weighted list — but learned. What’s difficult, and Martin is right here, is that the level of complex interactions is difficult for a computer to piece together and reason about.</p>
+
+    <p>Here is our Q learning beacon AI again, playing on normal speed this time:</p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/B0Ud7eP8ELE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    <p>If you enjoyed this post, be sure to signup for more.</p>
+
+    <p>
+    <!-- Begin Mailchimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://hyperclone.us16.list-manage.com/subscribe/post?u=00b2cee03ebf76d80c40ce951&amp;id=9e611a04cd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<div id="mc_embed_signup_scroll">
+	  <p>Signup For More</p>
+	  <div class="mc-field-group">
+	    <!-- <label for="mce-EMAIL">Email</label> -->
+	    <input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+	  </div>
+	  <div id="mce-responses" class="clear">
+	    <div class="response" id="mce-error-response" style="display:none"></div>
+	    <div class="response" id="mce-success-response" style="display:none"></div>
+	  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_00b2cee03ebf76d80c40ce951_9e611a04cd" tabindex="-1" value=""></div>
+	  <div class="clear">
+	    <input type="submit" value="Signup" name="subscribe" id="mc-embedded-subscribe" class="button">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+    </p>
+  </div>
+</body>
+</html>

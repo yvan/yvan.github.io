@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing">Writing</a></p> 
+  </div>
+  <div id="blog-content">
+    <p>Feb 2018</p>
+
+    <h1>7 Cobol Examples</h1>
+    <!-- <img src="http://yvanscher.com/img/make_a_pygame2/img1.png" target="_blank"/> -->
+
+    <p>You may have heard COBOL before. If you search for it you will find images like this:</p>
+    
+    <img src="http://yvanscher.com/img/7_cobol_examples/img0.jpeg" target="_blank"/>
+
+    <p>This is a picture of a COBOL program editor running in a mainframe. Below we will go over 7 examples to COBOL (COmmon Business Oriented Language). We'll be running these programs on Linux. We are not going to cover mainframe tutorials here; there's a really good tutorial on mainframes here, and I've added some mainframe resources at the end.</p>
+
+    <p><h2>How to Install the GnuCobol compiler</h2></p>
+
+    <p>This compiler transpiles COBOL to C bytecode that can run on your linux bash command line. Not all the features of COBOL are supported, but most are.</p>
+
+    <p>Run (to install):</p>
+    <p>sudo apt-get install open-cobol</p>
+    
+    <p><h2>How to write a Program</h2></p>
+    
+    <p>We will write a simple program in cobol called 'hello.cbl'. There are a lot of strange keywords in cobol. I will explain them after compilation.</p>
+
+    <script src="https://gist.github.com/yvan/43f979b4e3e9ebcd11b1d602208b8446.js"></script>
+
+    <p><h2>How to Compile and run</h2></p>
+    <p>Create the runnable bytecode file with the instructions below. This transpiles our COBOL program called 'hello.cbl' to C, then it takes the C and produces an executable object/bytecode file called 'hello'.</p>
+    <p>Compile and then run with:</p>
+    <p>cobc -x -o hello hello.cbl</p>
+    <p>./hello</p>
+    <p>Should output: WILLKOMMEN</p>
+
+    <p><h2>Understanding the Program Structure</h2></p>
+    <p>First and foremost, to comment in cobol, use the *&gt characters. In a cobol program, there are several possible divisions. A division is just a way to break up the program into areas responsible for different things. So IDENTIFICATION DIVISION is responsible for identifying the program (docs). We will only use the PROGRAM-ID keyword, giving our program a name, to keep it simple. The DATA DIVISION is a place where we can declare variables we want to use in our program. We will use the WORKING-STORAGE keyword (docs). The PROCEDURE DIVISION is like the main function of our program. It runs our code and can access anything defined in the data division (docs). The STOP RUN sentence (sentence=one or more 'statements' that ends with a '.') exits the program (like sys.exit() in python). You will also notice 6 spaces on the left of all my programs. This is not a mistake; the compiler expects this, and on a mainframe, these 6 spaces would be used for line numbers. Also: EVERYTHING IN COBOL IS CAPITALIZED, SO IT'S OFTEN EASIER TO TYPE WITH CAPSLOCK. You may notice the dot/period at the end of some lines. This is how you end a sentence (a series of one or more statements) in cobol. Below I may refer to anything that ends with a period as a statement. Ok, so now that we have gotten through the basics of the program structure, let's write some programs.</p>
+
+    <p><h2>Declaring Variables</h2></p>
+    <p>I will write a script below that explains how to declare and print variables. First, we will declare several variables in the data division (FIRST-VAR, SECOND-VAR, etc) and then print them in the procedure division using DISPLAY.</p>
+
+    <script src="https://gist.github.com/yvan/072be99b5c8c577ca4d8abae99f3741b.js"></script>
+
+    <p>PIC stands for picture (not sure why it is called this), and it is a keyword we use to define a variable. We use functions of the form type(elements). So 9(3) would correspond to laying aside enough room in memory for storing a number with 3 values. Above, we define many variables and then print them out. You may also notice the 01 values before each declaration and the 05 value before sub-variables. These numbers are called level numbers and indicate to cobol what kind of variable we are declaring. 01 is for top-level variables, 05 is group-level variables under some other variable. Below are the functions and what each data type above corresponds to.</p>
+    <p>9 — numeric</p>
+    <p>A — alphabetic</p>
+    <p>X — alphanumeric</p>
+    <p>V — decimal</p>
+    <p>S — sign</p>
+    <p>A final example:</p>
+    <p>01 CAT-PEOPLE PIC X(15) VALUE '12@4A!D$'.</p>
+    <p>Would create a variable called CAT-PEOPLE with space for 15 alphanumeric elements that only actually fill out 8 of them. You may have noticed that I do this above in the subgroup. Here is another data declaration resource.</p>
+    <p><h2>Common Verbs</h2></p>
+    <p>In cobol, a verb is a keyword that does something (docs). We will cover the compute, divide, multiply, subtract, add, move, and initialize verbs. These are verbs you will often use in cobol programming to calculate, say, the result of a business transaction.</p>
+
+    <script src="https://gist.github.com/yvan/ad7afc940918e238b3c4f7a2c05d5b96.js"></script>
+
+    <p>compute — can be used to do arithmetic and store the result in a variable</p>
+    <p>divide — can be used to divide two numbers</p>
+    <p>multiply — can be used to, you guessed it, multiply</p>
+    <p>add — adds two variables/numbers</p>
+    <p>move — moves a value or reference from a variable into another variable.</p>
+    <p>initialize — this is used above to reset a variable after it's been set</p>
+
+    <p><h2>Conditionals</h2></p>
+    <p>In this section, we will look at if/else statements and switch statements.</p>
+
+    <script src="https://gist.github.com/yvan/81067209bfc284e67f963b44f87fd3c6.js"></script>
+
+    <p>All this should be familiar to you if you have done any programming. You have your standard if/else, not/and/or operators, type comparisons, and switch statements. The only thing that might be a little weird are the pre-defined statements. What has essentially happened here is that the variable CHECK-VAL has these two conditions that depend on it (hence why PASS/FAIL are indented underneath CHECK-VAL) 88 is a special level number (like 01) for indicating that a statement is a custom conditional that depends on the 01 variable above it. You will also notice our STOP RUN is not indented here. This exits the whole program which is why you can indent or un-indent it from the procedure division.</p>
+    
+    <p>Here are some examples using NOT/AND/OR as well as some other extras (imagine putting these into the procedure division above):</p>
+
+    <script src="https://gist.github.com/yvan/137dad60e7c6eff46d90bce1bead7960.js"></script>
+
+    <p>One last thing to notice: IF statements that do not have END-IF need a period to end them inside their last 'substatement.'</p>
+
+    <p>String Handling</p>
+    <p>String handling in cobol is verbose and requires a lot of typing. Let's try it.</p>
+
+    <script src="https://gist.github.com/yvan/c26973878fccdd5b48e15f815b982a58.js"></script>
+
+    <p>Tallying all or just specific characters is pretty clear. The replacing keyword is also pretty straightforward, it replaces specified data in the string with some other data. What's worth digging into here is the string concatenation and the splitting. In the STRING statement, we pass in the original strings WS-STR2, WS-STR3, WS-STR1, and we use a DELIMITED BY to tell the string statement how to combine them. If we delimit by SIZE, we tell cobol to add the entire input string to the final string. If we delimit by SPACE we are saying to take the input string up to the first space and omit the rest. The INTO keyword tells us the variable (WS-STRING-DEST) where the resulting concatenated string will be stored. WITH POINTER, here manages to count the things in the final string. So somehow, putting a pointer to the string counts it as things are concatenated in. What happens is it sets a pointer to the beginning, and as you push things into the final string, it pushes the pointer down several locations that are then stored as a count. The ON OVERFLOW tells cobol what to do if the input strings are too large; here it prints/displays' OVERFLOW!'</p>
+
+    <p>The string docs on mainframetechhelp are useful for understanding this section.</p>
+
+    <p>Looping</p>
+    <p>We will now cover some of the looping logic in cobol. Before we get into it, I'll mention parts of the procedure division; these named parts, called paragraphs, can be used similarly to functions or named lambda functions in python. In cobol a paragraph can contain many sentences/statements.</p>
+
+    <script src="https://gist.github.com/yvan/dddbbd80d693a38810c07f34df040edd.js"></script>
+
+    <p>So I think the loops are pretty well explained above. You will notice here we set aside code to be called outside the procedure division. This is because we want to define these as things we can do, but we don't actually want to run them in the procedure division, so we put them in paragraphs outside the procedure division. To do this, each one needs to have a name that we can reference/use in the procedure division. So B-PARA-TIMES will only be run when it's called in our loop on line 13.</p>
+
+    <p><h2>Files</h2></p>
+    <p>Files in cobol usually have a rigid structure like a table. This is because of what they were created for dealing with: well-organized business data. There are a few kinds of files in cobol (docs, another example); we will deal with sequential files as they are the most basic. A sequential file consists of records (rows), and each record contains some number of fields (columns). Let's get to the code.</p>
+
+    <script src="https://gist.github.com/yvan/fb72c1c439c0d101a99ac67dd45bdb6f.js"></script>
+
+    <p>So in cobol you need to specify the file and the kind of file it is in the INPUT-OUTPUT SECTION. Then, you need to specify what kind of records are in your file. Then you need to create such a record with the exact same structure. Then in the PROCEDURE DIVISION, you open the file (see open modes for details). Then you when writing, you specify what kind of record you are adding and the record itself. Here we have opened our file in OUTPUT mode, which always re-creates a file when you open it even if it already exists. You can make writing a file take 100 lines of code in cobol, so I tried to keep it shorter. This is a nice guide on sequential files in cobol. To understand the syntax of WRITE, here are the ibm docs.</p>
+
+    <p><h2>Resources for mainframe programming</h2></p>
+    <p>If you are interested in legacy systems and cobol, you will probably want to play around on a mainframe. They are hard to use and look something like this:</p>
+
+    <img src="http://yvanscher.com/img/7_cobol_examples/img1.png" target="_blank"/>
+
+    <p>The below resources may be helpful:</p>
+    <p><a href="https://medium.com/@bellmar/mainframe-on-the-macbook-51bc1806d869">mainframe on mac</a></p>
+    <p><a href="https://www.youtube.com/watch?v=Uv7ThVwb7m8">programming mainframe cobol</a></p>
+    <p><a href="http://www.csis.ul.ie/cobol/examples/default.htm">more cobol examples</a></p>
+    <p><a href="http://www3.sympatico.ca/bredam/GoodBadUgly.html">overview of cobol quirks</a></p>
+    <p><a href="https://devops.com/the-beauty-of-the-cobol-programming-language-v2/">another programming tutorial with cobol</a></p>
+    <p><a href="https://github.com/mickaelandrieu/awesome-cobol">cobol software</a></p>
+
+    <p><h2>Conclusion</h2></p>
+    <p>Cobol is interesting. I think it's really fascinating that a language like this has been around since the 1950s in some form, and to be honest, it will probably be around for the foreseeable future. It's probably useful for some folks to have a grasp on the basics.</p>
+    
+    <p>If you enjoyed this post, be sure to signup for more.</p>
+
+    <p>
+    <!-- Begin Mailchimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://hyperclone.us16.list-manage.com/subscribe/post?u=00b2cee03ebf76d80c40ce951&amp;id=9e611a04cd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<div id="mc_embed_signup_scroll">
+	  <p>Signup For More</p>
+	  <div class="mc-field-group">
+	    <!-- <label for="mce-EMAIL">Email</label> -->
+	    <input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+	  </div>
+	  <div id="mce-responses" class="clear">
+	    <div class="response" id="mce-error-response" style="display:none"></div>
+	    <div class="response" id="mce-success-response" style="display:none"></div>
+	  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_00b2cee03ebf76d80c40ce951_9e611a04cd" tabindex="-1" value=""></div>
+	  <div class="clear">
+	    <input type="submit" value="Signup" name="subscribe" id="mc-embedded-subscribe" class="button">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+    </p>
+  </div>
+</body>
+</html>

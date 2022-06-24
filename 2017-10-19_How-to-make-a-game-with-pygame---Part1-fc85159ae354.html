@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>How to make a game with pygame — Part1</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">How to make a game with pygame — Part1</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+For programers who want to mess around with game development.
+</section>
+<section data-field="body" class="e-content">
+<section name="7ef6" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="38a8" id="38a8" class="graf graf--h3 graf--leading graf--title">How to make a game with pygame — Part1</h3><p name="cafc" id="cafc" class="graf graf--p graf-after--h3">For programers who want to mess around with game development.</p><h3 name="8ec4" id="8ec4" class="graf graf--h3 graf-after--p">Installing pygame</h3><p name="f90b" id="f90b" class="graf graf--p graf-after--h3">If you are on windows or linux the <a href="https://www.pygame.org/wiki/GettingStarted" data-href="https://www.pygame.org/wiki/GettingStarted" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">regular pygame installation</a> will probably work just fine. If you have a mac however you’ll need to follow these steps:</p><p name="596d" id="596d" class="graf graf--p graf-after--p">Install homebrew and python3 via homebrew:</p><pre name="706d" id="706d" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></pre><pre name="5117" id="5117" class="graf graf--pre graf-after--pre">brew install python3</pre><p name="ad2e" id="ad2e" class="graf graf--p graf-after--pre">this will install python3 at /usr/local/bin/python3. If you have anaconda you will need to use this full path to run this python install.</p><p name="a508" id="a508" class="graf graf--p graf-after--p">Install pygame with:</p><pre name="a14c" id="a14c" class="graf graf--pre graf-after--p">/usr/local/bin/pip3 install pygame</pre><p name="6950" id="6950" class="graf graf--p graf-after--pre">this will install pygame and you can run something like:</p><pre name="7547" id="7547" class="graf graf--pre graf-after--p">/usr/local/bin/python3 game.py</pre><p name="ff6d" id="ff6d" class="graf graf--p graf-after--pre">There are other ways to do this for example using venv with homebrew python. I’m sticking with this as it works and believe me you don’t want to spend 5 hrs reading stack posts about why your game can’t register a key; this is easier and will get you going.</p><p name="1ec4" id="1ec4" class="graf graf--p graf-after--p">You can access images and <a href="https://github.com/yvan/nbsblogs/tree/master/minecraft2d" data-href="https://github.com/yvan/nbsblogs/tree/master/minecraft2d" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">resources I used to make this game are here on github</a>.</p><h3 name="9524" id="9524" class="graf graf--h3 graf-after--p">Create a character and a game loop.</h3><p name="551f" id="551f" class="graf graf--p graf-after--h3">Create a file called game.py:</p><figure name="5524" id="5524" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/d6551ace488adfced53f35d87fa6293e.js"></script></figure><p name="4b5a" id="4b5a" class="graf graf--p graf-after--figure">Run the game with:</p><pre name="3946" id="3946" class="graf graf--pre graf-after--p">/usr/local/bin/python3 game.py</pre><p name="96fe" id="96fe" class="graf graf--p graf-after--pre">This should create a game that looks like this in a little popup window:</p><figure name="9373" id="9373" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 466px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 66.60000000000001%;"></div><img class="graf-image" data-image-id="1*4PxWpCnu7E1c3Eyh37vsmw.png" data-width="2404" data-height="1602" src="img/1_4PxWpCnu7E1c3Eyh37vsmw.png"></div></figure><p name="33a6" id="33a6" class="graf graf--p graf-after--figure">We have the blank world of the void. We have our wizard character (a 40x40 png). Even though it looks static in actuality the program of our game is running and re-rendering this world and our character every few miliseconds. Still, this game is not particularly interesting as we can’t move our character, look at a pretty map or do much of anything. Let’s change that in the next section. You can ctrl-c the program we are running on the terminal to exit this game.</p><h3 name="66d0" id="66d0" class="graf graf--h3 graf-after--p">Registering events for your character.</h3><p name="4444" id="4444" class="graf graf--p graf-after--h3">If you messed up the “Installing pygame” step events probably wont register on your mac. This could happen if you are using virtualenv or anaconda python. Again go back and install python3 and pygame as indicated above. In this section we are going to register arrow keypresses to make our character move around our empty world.</p><figure name="407d" id="407d" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/22ba58b9474590d8bda8e6417c45e1c6.js"></script></figure><p name="2522" id="2522" class="graf graf--p graf-after--figure">This should produce a game world where you can move left, right, up, and down and press the red exit button to in the top left of the window to leave, here is a video of that:</p><figure name="9e7c" id="9e7c" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/d-bU10izkY8?feature=oembed" width="700" height="393" frameborder="0" scrolling="no"></iframe></figure><p name="1e8f" id="1e8f" class="graf graf--p graf-after--figure">Even though we can now move in this world there isn’t a whole lot there. Let’s fix that by creating an interesting map.</p><h3 name="b9d1" id="b9d1" class="graf graf--h3 graf-after--p"><strong class="markup--strong markup--h3-strong">Let’s make the world a little more interesting by adding a map.</strong></h3><p name="f04d" id="f04d" class="graf graf--p graf-after--h3">Our map will be made of tiles and each tile will be a resource in our game.</p><figure name="9cd2" id="9cd2" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/ed60896acf8be9260ed6c1ea36362e1f.js"></script></figure><p name="6651" id="6651" class="graf graf--p graf-after--figure">You should now have a pretty map of resources:</p><figure name="81ce" id="81ce" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 466px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 66.60000000000001%;"></div><img class="graf-image" data-image-id="1*z4xGIHfZRef4-diI0Owlag.png" data-width="2400" data-height="1598" src="img/1_z4xGIHfZRef4-diI0Owlag.png"></div></figure><p name="5322" id="5322" class="graf graf--p graf-after--figure">So you can now walk around and we have a pretty map. Let’s add the ability to interact with this map in some way.</p><h3 name="d5f4" id="d5f4" class="graf graf--h3 graf-after--p">Adding an inventory to keep track of your resources.</h3><p name="11d2" id="11d2" class="graf graf--p graf-after--h3">In this section we will add an inventory and a way to pick up resources using the space key.</p><figure name="6fec" id="6fec" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/b14962d3e8c2aea1db869f375bbe48bd.js"></script></figure><p name="de0b" id="de0b" class="graf graf--p graf-after--figure">You should now be able to move, pick up resources and see them increasing in your inventory. You may have noticed it is possible to pick up an infinite amount of dirt. Although this was not totally intended it seems to work just fine, so that’s cool. Here is an image of me cleaning out a corner of the map and you can see the resources in my inventory:</p><figure name="ee41" id="ee41" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 498px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 71.1%;"></div><img class="graf-image" data-image-id="1*VWQR7pp0fNl5cCCpksmfRQ.png" data-width="2400" data-height="1706" src="img/1_VWQR7pp0fNl5cCCpksmfRQ.png"></div></figure><p name="c8ac" id="c8ac" class="graf graf--p graf-after--figure">You may notice that there are resources in your inventory that are not on the map. That’s because these resouces need to be crafted. In the next section we will design a crafting system.</p><h3 name="4803" id="4803" class="graf graf--h3 graf-after--p">Adding a crafting system.</h3><p name="85ce" id="85ce" class="graf graf--p graf-after--h3">The way our crafting system will work is that if you press the number key corresponding to the resource and you press the mouse button and you have the ingredients in your inventory it will craft that resource. So for example to create fire we need 1 wood. Pressing the ‘6’ key and the left mouse click and having 1 wood in our inventory will create 1 fire. In this section we will also add a way to place resources down on the ground (swapping whatever is there on the ground into our inventory). To place a resource down we will press the number key representing that resource so to put down the fire we crafted we just press ‘6.’</p><figure name="fc9f" id="fc9f" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/c608dcdef372c58f4feb1cbc8bf101e9.js"></script></figure><figure name="e70c" id="e70c" class="graf graf--figure graf-after--figure"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 497px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 71%;"></div><img class="graf-image" data-image-id="1*HpEEGg6Z1tDuOi9MoAEITQ.png" data-width="2398" data-height="1702" src="img/1_HpEEGg6Z1tDuOi9MoAEITQ.png"></div></figure><p name="3aa6" id="3aa6" class="graf graf--p graf-after--figure">As you can see I’ve created a moat of water with a stone wall and barrier of fire around my cache of precious glass. We wouldn’t anyone to steal it. Experiment with this and build stuff if you want, just remember our game has no saving.</p><h3 name="bd01" id="bd01" class="graf graf--h3 graf-after--p">Adding ambient features to your world.</h3><p name="10f7" id="10f7" class="graf graf--p graf-after--h3">To make our world a little more immersive we’re going to add a cloud and some birds to the environment. The clouds will move across the map and obscure vision (adding a small element of challenge as you are trying to build). You may have noticed in the last section that cloud was actually listed as a resource and in the textures dictionary. While stritcly not a resource it is easier for us to keep using our current method of looking up textures so we’ll keep it this way.</p><figure name="b4b5" id="b4b5" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/4a87eb87092f93cfea6d721dc1e71b3f.js"></script></figure><p name="3c32" id="3c32" class="graf graf--p graf-after--figure">Normally for the bird we would use something called a sprite but I wanted to keep this tutorial simple so i made my own little method that tells us which bird image to animate. If you wait long enough now you will see 2 clouds and a bird adding a little bit of life to our game. Check it out:</p><figure name="6566" id="6566" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 700px; max-height: 497px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 71.1%;"></div><img class="graf-image" data-image-id="1*-oe_AcixJoE21SCTZXoeuA.png" data-width="2398" data-height="1704" data-is-featured="true" src="img/1_-oe_AcixJoE21SCTZXoeuA.png"></div></figure><figure name="f7af" id="f7af" class="graf graf--figure graf--iframe graf-after--figure"><iframe src="https://www.youtube.com/embed/iVEyEufnPac?feature=oembed" width="640" height="480" frameborder="0" scrolling="no"></iframe></figure><h3 name="d553" id="d553" class="graf graf--h3 graf-after--figure">Conclusion</h3><p name="83f3" id="83f3" class="graf graf--p graf-after--h3">In a future tutorial I may go over saving games, adding goals to the game, adding enemies that work against you as you try to accomplish your goals. If you liked this tutorial don’t forget to leave some claps and you can <a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">signup to see more at my newsletter here.</a></p><p name="f059" id="f059" class="graf graf--p graf-after--p">This tutorial is based on <a href="http://usingpython.com/pygame/" data-href="http://usingpython.com/pygame/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">another tutorial</a> (its actually gone now!). I followed the same general path but wanted to move in a different order and keep the code a little more consistent as well as address common issues in pygame. All the steps in this post and <a href="https://github.com/yvan/nbsblogs/tree/master/minecraft2d" data-href="https://github.com/yvan/nbsblogs/tree/master/minecraft2d" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">resources I used to make this game are here on github</a>.</p><h3 name="a425" id="a425" class="graf graf--h3 graf-after--p graf--trailing"><a href="https://medium.com/@yvanscher/how-to-make-a-game-with-pygame-part-2-89b22a1284b4" data-href="https://medium.com/@yvanscher/how-to-make-a-game-with-pygame-part-2-89b22a1284b4" class="markup--anchor markup--h3-anchor" target="_blank">Find part 2 of this tutorial here.</a></h3></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/fc85159ae354"><time class="dt-published" datetime="2017-10-19T22:04:53.349Z">October 19, 2017</time></a>.</p><p><a href="https://medium.com/@yvanscher/how-to-make-a-game-with-pygame-fc85159ae354" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

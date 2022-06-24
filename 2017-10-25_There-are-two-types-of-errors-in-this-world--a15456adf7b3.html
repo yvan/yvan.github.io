@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>There are two types of errors in this world…</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">There are two types of errors in this world…</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Type I and Type II errors.
+</section>
+<section data-field="body" class="e-content">
+<section name="ad85" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="31cb" id="31cb" class="graf graf--h3 graf--leading graf--title">There are two types of errors in this world…</h3><p name="a322" id="a322" class="graf graf--p graf-after--h3">Type I and Type II errors.</p><p name="3107" id="3107" class="graf graf--p graf-after--p">In this post we’ll be going over the two types of common statistical errors. If you are like me and have had trouble keeping these straight then this may be helpful. I’m going to assume you are familiar with hypothesis testing for the rest of this post. If you don’t know what a hypothesis test is I think <a href="https://medium.com/@yvanscher/hypothesis-testing-fcc5d385dc59" data-href="https://medium.com/@yvanscher/hypothesis-testing-fcc5d385dc59" class="markup--anchor markup--p-anchor" target="_blank">my other post offers a pretty intuitive introduction.</a></p><p name="5a4e" id="5a4e" class="graf graf--p graf-after--p">Let’s say we have two hypotheses, we give two groups of patients different pills and measure their test scores. The first group get a pill with a drug in it; the second group gets a pill with a placebo in it. We then record the mean tests scores, the mu values below.</p><figure name="b66a" id="b66a" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 302px; max-height: 130px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 43%;"></div><img class="graf-image" data-image-id="1*jK_ICRc-dLpP_wJJXSRx4g.png" data-width="302" data-height="130" src="img/1_jK_ICRc-dLpP_wJJXSRx4g.png"></div></figure><p name="3fdf" id="3fdf" class="graf graf--p graf-after--figure">The first or null hypothesis says that giving patients a drug does nothing because the mean test scores are the same for drugged and non drugged patients. The second or alternate hypothesis is that the drug does have some affect and that the effect of the drug makes the mean test scores of drugged and placebo patients different.</p><h4 name="d2b4" id="d2b4" class="graf graf--h4 graf-after--p">Type I Errors</h4><p name="aa0c" id="aa0c" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">A type I error is an incorrect rejection of the null hypothesis.</strong> The p-value you get from your statistical test is the probability that you rejected the null hypothesis when it was true; the p-value is the probability of making a type I error. So if you get a lower p-value for yous statistical test you lower your chances of making a type I error. Usually though you want to pick a ‘signifigance level’ and stick to it. So you can say ‘my p-value was 0.02 which is signifigant at the 0.05 level.’ This tells the reader that you are willing to take a 5% chance of making a type I error and that your test outperformed this expectation by getting a lower p-value.</p><p name="1e6d" id="1e6d" class="graf graf--p graf-after--p">This image illustrates a type I error:</p><figure name="0023" id="0023" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 409px; max-height: 205px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 50.1%;"></div><img class="graf-image" data-image-id="1*_qxjR83vHKDHGRad0S2t6A.gif" data-width="409" data-height="205" src="img/1__qxjR83vHKDHGRad0S2t6A.gif"></div></figure><h4 name="0312" id="0312" class="graf graf--h4 graf-after--figure">Example of Type I Error</h4><p name="ff53" id="ff53" class="graf graf--p graf-after--h4">Assume for the hypothesis above you got a p-value of 0.10 for your test statistic on the placebo data that would mean you would have a 10% chance of rejecting the null hypothesis when it is actually the correct one. You would have a 10% chance of making a type I error.</p><h4 name="53ad" id="53ad" class="graf graf--h4 graf-after--p">Type II Errors</h4><p name="6213" id="6213" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">A type II error is an incorrect recjection of the alternate hypothesis.</strong> This is usually measured by its inverse: <strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">statistical power.</em></strong> Statistical power<strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em"> </em></strong>is the probability of <em class="markup--em markup--p-em">not</em> making a type II error. It is the probability of finding a statistically significant result on any one run of your test. You want your statistical power to be as high as possible; you can get it higher by including more data (a bigger sample). You can see examples of weak statistical power by re-running a hypothesis test with a 0.05 p-value threshold. Some statistical tests will always come in below 0.05 and some will sometimes end up above 0.05, lowering the statistical power of those tests.</p><h4 name="901c" id="901c" class="graf graf--h4 graf-after--p">Example of a Type II Error</h4><p name="cfa0" id="cfa0" class="graf graf--p graf-after--h4">I had typed up a solution to show you how to calculate the statistical power but it was confusing. It requires enough explanation to warrant it’s own post in the future. In short we want to ‘reverse’ our hypothesis test; we create a new distribution with mu_drug as the mean and we ask “what is the probability of rejecting the original null hypothesis?” using this new distribution and original signifigance level.</p><p name="7b34" id="7b34" class="graf graf--p graf-after--p">This image shows this process quite well:</p><figure name="48f7" id="48f7" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 604px; max-height: 315px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 52.2%;"></div><img class="graf-image" data-image-id="1*bN-RCzfdlXv-tmBgvKRcAQ.gif" data-width="604" data-height="315" data-is-featured="true" src="img/1_bN-RCzfdlXv-tmBgvKRcAQ.gif"></div></figure><p name="4324" id="4324" class="graf graf--p graf-after--figure">If you are confused by some of this check out <a href="http://stattrek.com/hypothesis-test/statistical-power.aspx?Tutorial=Stat" data-href="http://stattrek.com/hypothesis-test/statistical-power.aspx?Tutorial=Stat" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">this post</a>. It does a pretty good job of explaining statistical power. Or <a href="https://onlinecourses.science.psu.edu/stat414/book/export/html/245" data-href="https://onlinecourses.science.psu.edu/stat414/book/export/html/245" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">this page</a>.</p><p name="d807" id="d807" class="graf graf--p graf-after--p">I hope this short post was helpful in understanding types of statistical errors.</p><h4 name="9456" id="9456" class="graf graf--h4 graf-after--p graf--trailing"><a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">If you want to get more data science writeups you can hop onto my newsletter. It contains interesting data science posts once a month.</a></h4></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/a15456adf7b3"><time class="dt-published" datetime="2017-10-25T21:35:50.415Z">October 25, 2017</time></a>.</p><p><a href="https://medium.com/@yvanscher/there-are-two-types-of-errors-in-this-world-a15456adf7b3" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

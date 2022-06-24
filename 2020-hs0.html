@@ -1,0 +1,15 @@
+ -- intro
+
+i wanted to learn haskell as i had some friends and acquaintances using it. many smart people seem to like it. to learn haskell i'm going to complete every day of advent of code. it's a fun advent calendar with programming exercises that i find to be helpful tool for learning the ropes of any language.
+
+-- advent of code day 1
+
+the goal here is find fuel requirements for mass to do thie we write a function that divides a value by three, rounds it down, and then subtracts two. my first attempt:
+
+```hs
+
+findFuel a = (floor $ a / 3) - 2
+```
+
+i usually leave the type declarations off of my functions as i am still learning the type system. the type i would have given here is findFuel :: (Integer a) a -> a, which isn't too far off from ghc's inferred type of `findFuel :: (RealFrac a1, Integral a2) => a1 -> a2` which returns an integral type which is just a class that encompasses things like Int (fixed precision integer which is usually 32 or 64 bits) and Integer (arbitrary precision integer that can hold any number no matter how many bits).
+

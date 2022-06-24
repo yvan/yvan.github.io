@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing/misc">Misc</a></p> 
+  </div>
+  <div id="blog-content">
+    <p>Feb 2018</p>
+
+    <h1>Pytorch Yielding Image Sizes</h1>
+    <!-- <img src="http://yvanscher.com/img/make_a_pygame2/img1.png" target="_blank"/> -->
+
+    <p>Need to get image sizes using torchvision datasets?</p>
+
+    <p>If you try to load images with torchvision you may get an error like this:</p>
+
+    <script src="https://gist.github.com/yvan/af55045de3fd25f8047b21a8c36b8156.js"></script>
+
+    <p>May throw and give you an error like this at the bottom of the stack trace:</p>
+
+    <p><b>RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 256 and 519 in dimension 2 at /opt/conda/conda-bld/pytorch_1518243271935/work/torch/lib/TH/generic/THTensorMath.c:2897</b></p>
+    <p>Each batch is a single tensor (matrix), and pytorch says that all the images in a batch need to be the same size. This makes sense. If you had a 2D matrix row, 1 could not have 5 columns if row 2 has 7 columns. Every row in a matrix has to have the same number of columns. If you want to get the sizes using pytorch, you can just set a batch_size of 1. That way, each image will be its tensor, and you can record/store the sizes. Like so:</p>
+    
+    <script src="https://gist.github.com/yvan/0afa092eee621d70f76185fa62bc274d.js"></script>
+
+    <p>I find this useful because pytorch’s image loader seems to load things in a slightly different order than if I just read the files off disk (not to mention it's helpful if you are shuffling via a fixed random seed), and this helps me keep my data for when I want to check my predictions. It will output something like this:</p>
+
+    <p>torch.Size([1, 3, 256, 256])</p>
+    <p>torch.Size([1, 3, 519, 253])</p>
+    <p>torch.Size([1, 3, 256, 256])</p>
+    <p>torch.Size([1, 3, 256, 256])</p>
+    <p>torch.Size([1, 3, 256, 256])</p>
+    <p>torch.Size([1, 3, 512, 680])</p>
+
+    <p>As you can see, images of many sizes using a pytorch dataset!</p>
+    
+    <p>If you enjoyed this post, be sure to signup for more.</p>
+
+    <p>
+    <!-- Begin Mailchimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://hyperclone.us16.list-manage.com/subscribe/post?u=00b2cee03ebf76d80c40ce951&amp;id=9e611a04cd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<div id="mc_embed_signup_scroll">
+	  <p>Signup For More</p>
+	  <div class="mc-field-group">
+	    <!-- <label for="mce-EMAIL">Email</label> -->
+	    <input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+	  </div>
+	  <div id="mce-responses" class="clear">
+	    <div class="response" id="mce-error-response" style="display:none"></div>
+	    <div class="response" id="mce-success-response" style="display:none"></div>
+	  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_00b2cee03ebf76d80c40ce951_9e611a04cd" tabindex="-1" value=""></div>
+	  <div class="clear">
+	    <input type="submit" value="Signup" name="subscribe" id="mc-embedded-subscribe" class="button">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+    </p>
+  </div>
+</body>
+</html>

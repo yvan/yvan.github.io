@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing">Writing</a></p> 
+  </div>
+  <div id="blog-content">
+    <p>August 2018</p>
+
+    <h1>Make a Pygame 2</h1>
+
+    <img src="http://yvanscher.com/img/make_a_pygame2/img1.png" target="_blank"/>
+    
+    <p>A few months ago, I wrote a post about how to make a game with pygame. Please check out that post first, as it lays the foundation for this one. The game was a sandbox and lacked objectives, but you could collect raw materials, craft, and build things. In this post, we will add an objective to our game that let's the player build toward something.</p>
+
+    <p><h2>Our Objective</h2></p>
+    
+    <p>Before that, we need to ask: what is the point of our game? If you want to make a good game, it should have a single point. For example, Mount and Blade, a great medieval sandbox RPG in an open world, still has a single goal: "advance and develop your character." There are many ways to accomplish this single goal: fighting, trading, tournaments, doing quests, ruling fiefs, founding businesses, raiding. The point of our game is to build structures. Our objective will provide guidelines for each structure to make. We can then add a story or measurement system. "You are a wizard stonemason who, hired to build vaults. You need to get your vault as close as possible to the guideline structure to increase your score."</p>
+    
+    <p><h2>Our mechanic</h2></p>
+    <p>The mechanic is the actual thing the player does to achieve our objective. The mechanic will be a secondary view where you can press a button and see what the structure should look like, and then you can build it. The clouds we added in part 1 obscure vision and also increased the difficulty a bit.</p>
+
+    
+    <p>We are adding to our game...</p>
+    <p>1- saving so a game can be loaded with prior progress and we can save/load objectives</p>
+    <p>2- an objective with visualization mechanic to build a specific structure on the map</p>
+    <p>3- a scoring mechanism to rate the result</p>
+    
+    <p><h2>Adding saving</h2></p>
+    <p>First, we are going to add saving to the game. In its most basic form, saving the game state and loading it again involves storing the locations of everything on the screen, our character, and our inventory, and populating these values from this save when we load up the game. So the way I've implemented saving is to make everything in the game world that I want to save a value inside a python dictionary called game_state, then I save this dictionary to a file. Below you can see a video of me saving my game then loading that save.</p>
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/W0VStNEoPKY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>To save our game, you can press the 's' key, and it will automatically create a file called save-file-DATE.save, which contains all the info needed to reload our game. Whenever we have a new feature we want to be save-able, we make sure it is part of the game_state dictionary in our code, and our function will save it.</p>
+
+    <script src="https://gist.github.com/yvan/a120b42e42b114772e1746f08cbb9ca3.js"></script>
+
+    <p><h2>Adding the objective</h2></p>
+
+    <p>We are going to use our save functionality here to make our objective. We are going to make two world states that the player can make. These world states are pretty designs/layouts for our little game. The goal is to get the world as close as possible to this world state. So I will create these states and save my game and then load them into a new mechanic we will call 'future sight.' If we press/hold 'f,' we will see the structure we need to make superimposed onto the map. Below you can see me examining an objective.</p>
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/PgQHAaRh4Ug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>You can create your objectives by making a structure then pressing the 'o' key, which will save just the tilemap from the game_state as an objective file. Then to use that as the objective for a level, you have to load it as I did on the command line. Here is the code:</p>
+
+    <script src="https://gist.github.com/yvan/6b0c0ecb4f473426f48d9736603e88cc.js"></script>
+
+    <p><h2>Adding scoring</h2></p>
+
+    <p>You may notice that we have no way to score the end product. We will create a yellow outline in the objective view (the view that shows our goal structure), and this yellow outline will denote the scoring area. To score our game, we press 'e'. This gives us a score based on how close our structure is to the objective. I updated our function that saves objectives to now save the tilemap and an empty rectangle called scoring_rect. To add a rectangle, you can edit the values in the objective file under the key "scoring_rect." The values are in a list, and there should only be 4 (x, y,  width, height of the rectangle). You can open the objective file in any plain text editor and make whatever scoring area you want. Here is a video of me attempting to build this objective then scoring it with our new scoring function. I score it several times, going eventually to a score of 81.</p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/PrjWD9gqoVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>Notice I am constantly checking the objective with 'f' to see what I should be building.</p>
+    <p>Here is the code:</p>
+
+    <script src="https://gist.github.com/yvan/f4dc6d7a843a6aff5266905b5ef008c6.js"></script>
+
+    <p>If you enjoyed this post, be sure to signup for more.</p>
+
+    <p>
+    <!-- Begin Mailchimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://hyperclone.us16.list-manage.com/subscribe/post?u=00b2cee03ebf76d80c40ce951&amp;id=9e611a04cd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<div id="mc_embed_signup_scroll">
+	  <p>Signup For More</p>
+	  <div class="mc-field-group">
+	    <!-- <label for="mce-EMAIL">Email</label> -->
+	    <input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+	  </div>
+	  <div id="mce-responses" class="clear">
+	    <div class="response" id="mce-error-response" style="display:none"></div>
+	    <div class="response" id="mce-success-response" style="display:none"></div>
+	  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_00b2cee03ebf76d80c40ce951_9e611a04cd" tabindex="-1" value=""></div>
+	  <div class="clear">
+	    <input type="submit" value="Signup" name="subscribe" id="mc-embedded-subscribe" class="button">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+    </p>
+  </div>
+</body>
+</html>

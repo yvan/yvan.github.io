@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Cellular Automata: How to Create Realistic Game Levels</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Cellular Automata: How to Create Realistic Game Levels</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Generating caves that seem real in python.
+</section>
+<section data-field="body" class="e-content">
+<section name="7946" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="b8ba" id="b8ba" class="graf graf--h3 graf--leading graf--title">Cellular Automata: How to Create Realistic Game Levels</h3><p name="7b0c" id="7b0c" class="graf graf--p graf-after--h3">Generating caves that seem real in python.</p><p name="4513" id="4513" class="graf graf--p graf-after--p">Have you ever wanted to create something from nothing? Often times when you are making games you’ll find yourself with the desire to autogenerate some part of your game, whether it be a map, character features, or weapon designs. The thing is … true randomness is kind of … bad. It usually ends up being unwieldy or downright unplayable. In this post I’m going to teach you a method for generating an infinite number of random but useful game maps. To do this we will use a generation method called <em class="markup--em markup--p-em">Cellular Automata</em>. Let’s dive in!</p><p name="d128" id="d128" class="graf graf--p graf-after--p">Here is a cave generated with almost complete randomness:</p><figure name="3b93" id="3b93" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 400px; max-height: 807px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 201.79999999999998%;"></div><img class="graf-image" data-image-id="1*_29vKrkQ8TiClSyp098eAQ.png" data-width="400" data-height="807" src="img/1__29vKrkQ8TiClSyp098eAQ.png"></div></figure><p name="0e67" id="0e67" class="graf graf--p graf-after--figure">Here is the code used to generate this cave:</p><figure name="e9ee" id="e9ee" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/b402af3eb54724993973c10ef3f81cd3.js"></script></figure><p name="2d13" id="2d13" class="graf graf--p graf-after--figure">In this cave dots are traversible cave floor and hashtags are non-traversible cave walls. You’ll notice there are some open spaces here but it is unlikely this cave would be fun to use in your game; in fact this cave is pretty awful. What we’d like is for there to be interesting features on the map but we don’t want to hardcode the features. <em class="markup--em markup--p-em">With Cellular Automata you create a set of simple rules</em> to follow that can produce features of the sort we want.</p><h4 name="47ef" id="47ef" class="graf graf--h4 graf-after--p">Changing the floor spawn rate</h4><p name="4f50" id="4f50" class="graf graf--p graf-after--h4">We want more room to walk around so there should be more floors than walls in our cave (not a 50/50 split).</p><p name="0b57" id="0b57" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">RULE: </strong>Set the spawn rate of walls to 40% and floors to 60%<strong class="markup--strong markup--p-strong">.</strong></p><figure name="7753" id="7753" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/815963d237ad204e90c886a178f3adf8.js"></script></figure><p name="159d" id="159d" class="graf graf--p graf-after--figure">Here is the cave our new rule makes:</p><figure name="8069" id="8069" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 400px; max-height: 805px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 201.29999999999998%;"></div><img class="graf-image" data-image-id="1*18qItbLY_-7obkoVkyoHzg.png" data-width="400" data-height="805" src="img/1_18qItbLY_-7obkoVkyoHzg.png"></div></figure><p name="607f" id="607f" class="graf graf--p graf-after--figure">The difference may appear subtle but there are more connected space and thes open spaces are larger. While this rule has improved our cave it’s still pretty unplayable. We want the walls to be more focused and we want the walking areas to be more contiguous.</p><h4 name="001a" id="001a" class="graf graf--h4 graf-after--p">Consolidating walls and floors</h4><p name="a700" id="a700" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">RULE:</strong> If there is between 5–7 walls nearby make the current point a wall.</p><p name="6540" id="6540" class="graf graf--p graf-after--p">Let’s write some code to capture these rules in python:</p><figure name="a8f3" id="a8f3" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/a4119d743579c5d936edc06c66f91e43.js"></script></figure><p name="1fbf" id="1fbf" class="graf graf--p graf-after--figure">Here is the map generated by our script:</p><figure name="d697" id="d697" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 400px; max-height: 799px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 199.8%;"></div><img class="graf-image" data-image-id="1*TGbCK6ZH2ySktT2wydSmBg.png" data-width="400" data-height="799" src="img/1_TGbCK6ZH2ySktT2wydSmBg.png"></div></figure><p name="5bc0" id="5bc0" class="graf graf--p graf-after--figure">As you can see this map looks pretty good. Let’s do one more thing let’s update the rules for before generation 5:</p><p name="6641" id="6641" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">RULE: </strong>Make a point into a wall if we are on the edge of the map before generation 5.</p><figure name="7a79" id="7a79" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/yvan/d25f0201de2ad7be6579fddb50c9e719.js"></script></figure><p name="2a53" id="2a53" class="graf graf--p graf-after--figure">This can produce even better maps:</p><figure name="3922" id="3922" class="graf graf--figure graf-after--p"><div class="aspectRatioPlaceholder is-locked" style="max-width: 400px; max-height: 794px;"><div class="aspectRatioPlaceholder-fill" style="padding-bottom: 198.5%;"></div><img class="graf-image" data-image-id="1*YTs07VZ_plyfWcVOTNeyCA.png" data-width="400" data-height="794" data-is-featured="true" src="img/1_YTs07VZ_plyfWcVOTNeyCA.png"></div></figure><p name="7a00" id="7a00" class="graf graf--p graf-after--figure">It has nooks, crannies, even islands, thicker walls, which makes sense because we added a bunch on every iteration. It’s also pretty fast to produce!</p><p name="e1d6" id="e1d6" class="graf graf--p graf-after--p">Is this method perfect? No. It’s more art than science and you’ll notice that below a certain dimension the maps are pretty uninteresting. Sometimes the maps are still too open. You can play with the different cutoffs, generations, and rules. You will see our method is extremely sensitive to changing any parameter. We can adjust our rules to fix that but I’ll leave experimentation to the reader. I encourage you to mess around with parameters and to try changing or adding rules.</p><p name="9894" id="9894" class="graf graf--p graf-after--p">I want to leave 2 quick plugs: <a href="https://github.com/sebastianherscher" data-href="https://github.com/sebastianherscher" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Sebatian Herscher</a> at the frl lab at nyu for writing cave code for our project. The original <a href="http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels" data-href="http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">website</a> where the idea for these caves came from.</p><h4 name="81d1" id="81d1" class="graf graf--h4 graf-after--p">Conclusion</h4><p name="87c8" id="87c8" class="graf graf--p graf-after--h4">We started with a random map and then applied some rules to turn that randomness into a structured map. You can also do the reverse, you can start with some structure and add randomness to it. A great example of this can be found in the indie title spelunky that has some of the best pseudo random level design. <a href="https://www.youtube.com/watch?v=Uqk5Zf0tw3o&amp;t=5s" data-href="https://www.youtube.com/watch?v=Uqk5Zf0tw3o&amp;t=5s" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Here is a video </a>of how spelunky starts with some structure and then adds randomness to make each level unique! Enjoy!</p><h4 name="6b9b" id="6b9b" class="graf graf--h4 graf-after--p graf--trailing"><a href="https://tinyletter.com/generationmachine" data-href="https://tinyletter.com/generationmachine" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">If you like this post and you’d like to get more like this drop your email for my newsletter here.</a></h4></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@yvanscher" class="p-author h-card">Yvan Scher</a> on <a href="https://medium.com/p/2a9ec35f5ba9"><time class="dt-published" datetime="2017-11-05T17:41:22.787Z">November 5, 2017</time></a>.</p><p><a href="https://medium.com/@yvanscher/cellular-automata-how-to-create-realistic-worlds-for-your-game-2a9ec35f5ba9" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on June 23, 2020.</p></footer></article></body></html>

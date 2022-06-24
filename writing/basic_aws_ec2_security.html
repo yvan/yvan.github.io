@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing">Writing</a></p> 
+  </div>
+  <div id="blog-content">
+  <p>2022 June 13</p>
+  <h1>Quick Individual Security for AWS EC2 Instances</h1>
+  <p>
+    Below I'm going to show you how I add some simple protection to a server so that only an authorized user can access it.
+  </p>
+
+<h2>Step 1 VPC</h2>
+
+<p>Make a vpc with one subnet and an internet gateway.</p>
+
+<code style="white-space: pre;">
+aws ec2 create-vpc --cidr-block 10.0.0.0/24
+# gives us vpc-id vpc-08978c6622c0cdde2
+  
+aws ec2 create-subnet --vpc-id vpc-08978c6622c0cdde2 --cidr-block 10.0.0.0/24
+# gives us subnet-id subnet-088dade0383f32827
+
+aws ec2 create-internet-gateway
+# gives us igw igw-08d28c1aeb68cc9b1
+
+aws ec2 attach-internet-gateway --internet-gateway-id igw-08d28c1aeb68cc9b1 --vpc-id vpc-08978c6622c0cdde2
+
+aws ec2 describe-route-tables --filters Name=vpc-id,Values=vpc-08978c6622c0cdde2
+# gives us rout table rtb-0f582e7a508bf0a55
+</code>
+
+<p>In the route tables we see that our new vpc has no way to get traffic from our servers to the internet. and should have a rule like this in "Routes."</p>
+
+<code style="white-space: pre;">
+aws ec2 create-route --route-table-id rtb-0f582e7a508bf0a55 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-08d28c1aeb68cc9b1
+{
+    "Return": true
+}
+</code>
+
+<p>So what we've done is create a public subnet inside a vpc. This is where our server(s) are going to live. To make sure only we can access it we're going too setup a security group next.</p>
+
+<h2>Step 2 Security Group</h2>
+
+<p>Before we make our new group, you may have noticed in the aws dashboard that this vpc already has a security group associated with it. We're going to make a new one and ignore the default one (you can use the default one if you like though).</p>
+
+<code style="white-space: pre;">
+aws ec2 create-security-group --vpc-id vpc-08978c6622c0cdde2 --group-name secgrp --description "Secure your machines"
+{
+    "GroupId": "sg-06e38dc4737441021"
+}
+
+aws ec2 authorize-security-group-ingress --group-id sg-06e38dc4737441021 --protocol tcp --port 22 --cidr 179.48.249.205/32
+{
+    "Return": true,
+    "SecurityGroupRules": [
+        {
+            "SecurityGroupRuleId": "sgr-07bd6d9923cfe26af",
+            "GroupId": "sg-06e38dc4737441021",
+            "GroupOwnerId": "XXX",
+            "IsEgress": false,
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIpv4": "179.48.249.205/32"
+        }
+    ]
+}
+</code>
+
+<p>This will create a security group that allows connections from the ip address 179.48.249.205, your ip will be different and you'll need to look it up and use it instead. You will need to update this rule when you want to connect with whatever your current ip is. A convenient option is to purchase a static ip from your internet service or vpn provider. If your ip is temporary it's best practice to remove the rule after finishing your work.</p>
+
+<p>So when you're done working do it like this:</p>
+
+<code style="white-space: pre;">
+aws ec2 revoke-security-group-ingress --group-id sg-06e38dc4737441021 --protocol tcp --port 22 --cidr 179.48.249.205/32
+{
+    "Return": true
+}
+</code>
+
+<h2>Step 3 Instance</h2>
+
+<p>Next you'll want to setup an instance. You will need to create a key on aws, and download the private part. This can be any standard ssh rsa key. I created one called "blog_ex" and put it in the blog_ex.cer file in my .ssh folder and ran `chmod 600 blog_ex.cer`.</p>
+
+
+<code style="white-space: pre;">
+aws ec2 run-instances --image-id ami-0ee8244746ec5d6d4 --count 1 --instance-type t2.micro --key-name blog_ex --security-group-ids sg-06e38dc4737441021 --subnet-id subnet-088dade0383f32827
+
+aws ec2 allocate-address
+{
+    "PublicIp": "44.227.104.175",
+    "AllocationId": "eipalloc-085246c43ea152122",
+    "PublicIpv4Pool": "amazon",
+    "NetworkBorderGroup": "us-west-2",
+    "Domain": "vpc"
+}
+
+aws ec2 associate-address --instance-id i-0652e96652e97eb93 --public-ip 44.227.104.175
+{
+    "AssociationId": "eipassoc-0efc13dedcc08c3f8"
+}
+</code>
+
+<p>I won't post the result of `run-instances` but it's a big long json object with the instance id and ample information about your new instance.</p>
+
+<p>If you try to ping the instance at this ip it should timeout:</p>
+
+<code style="white-space: pre;">
+ping  44.227.104.175
+PING 44.227.104.175 (44.227.104.175): 56 data bytes
+Request timeout for icmp_seq 0
+Request timeout for icmp_seq 1
+Request timeout for icmp_seq 2
+Request timeout for icmp_seq 3
+</code>
+
+<p>This is because we haven't allowed connections ICMP (internet control message protocol) but only TCP. Factoid: ICMP does not use any port as it operates at the network layer and not the transport layer.</p>
+
+<h2>Step 4 SSH to Instance</h2>
+
+<p>This will allow you to work in your instance with some peace of mind. Make sure to put whatever the name of your keyfile is instead.</p>
+
+<code style="white-space: pre;">
+ssh ubuntu@44.227.104.175 -i ~/.ssh/blog_ex.cer
+</code>
+
+<p>Even though you are the only one that can connect, this server can still make outward requests to download software or data, and received responses.</p>
+
+<h2>Cleanup</h2>
+
+<p>When I'm done I deallocate the servers, vpc, ip, and igw.</p>
+
+<code style="white-space: pre;">
+# instances
+aws ec2 terminate-instances --instance-ids i-097f5af615257e460
+{
+    "TerminatingInstances": [
+        {
+            "CurrentState": {
+                "Code": 32,
+                "Name": "shutting-down"
+            },
+            "InstanceId": "i-0652e96652e97eb93",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
+
+# sec groups
+aws ec2 delete-security-group --group-id sg-06e38dc4737441021
+
+# route tables/rules
+aws ec2 delete-route --route-table-id rtb-0f582e7a508bf0a55 --destination-cidr-block 0.0.0.0/0
+
+# subnets
+aws ec2 delete-subnet --subnet-id subnet-088dade0383f32827
+
+# gateways
+aws ec2 detach-internet-gateway --internet-gateway-id igw-08d28c1aeb68cc9b1 --vpc-id vpc-08978c6622c0cdde2
+
+# finally the vpc
+aws ec2 delete-internet-gateway --internet-gateway-id igw-08d28c1aeb68cc9b1
+aws ec2 delete-vpc --vpc-id vpc-08978c6622c0cdde2
+</code>
+
+<h2>End</h2>
+
+<p>This security setup is meant to provide basic security for solo users who otherwise would have none. There is, however, a principle in computer security called "defense in depth" the idea is to create multiple layers of protection to secure your servers. As your team grows you may find that you need more depth to your security.</p>
+
+<p>Other layers of protection:</p>
+
+<p style="white-space: pre;">
+sshd config changes
+ssh bastion host/proxy
+aws acl rules
+2fa for ssh
+</p>
+
+<p>If you see an issue in this blog, message me so we can fix it together. I like to work with others. If you have a project or you want help or advice you can <a href="http://yvanscher.com/hireme">hire me</a>.</p>
+
+
+<p>Resources:</p>
+
+<a href="https://stackoverflow.com/questions/56264000/using-an-aws-network-acl-versus-an-sg-for-access-control" target="_blank">Difference Between ACL, SG</a>
+
+  <p>
+    <!-- Begin Mailchimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://hyperclone.us16.list-manage.com/subscribe/post?u=00b2cee03ebf76d80c40ce951&amp;id=9e611a04cd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<div id="mc_embed_signup_scroll">
+	  <p>Signup For More</p>
+	  <div class="mc-field-group">
+	    <!-- <label for="mce-EMAIL">Email</label> -->
+	    <input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+	  </div>
+	  <div id="mce-responses" class="clear">
+	    <div class="response" id="mce-error-response" style="display:none"></div>
+	    <div class="response" id="mce-success-response" style="display:none"></div>
+	  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_00b2cee03ebf76d80c40ce951_9e611a04cd" tabindex="-1" value=""></div>
+	  <div class="clear">
+	    <input type="submit" value="Signup" name="subscribe" id="mc-embedded-subscribe" class="button">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+    </p>
+  </div>
+</body>
+</html>
