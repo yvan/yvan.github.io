@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Yvan Scher, yvan, scher, yvanscher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog - yvan scher</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175038637-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-175038637-1');
+    </script>
+</head>
+<body>
+  <div id="blog-content-header">
+    <p><a href="http://yvanscher.com">Home</a></p>
+    <p><a href="http://yvanscher.com/writing">Writing</a></p> 
+  </div>
+  <div id="blog-content">
+    <p>Feb 2018</p>
+
+    <h1>Pandas to PySpark</h1>
+
+    <p>
+      I wanted to write a simple example for how one might go from pandas to a more distributed computing framework like pyspark, and do many of the same types of things (transforms, filterings, regex cleaning, etc). Below I'll walk you through how to do merging and conversions and do a comparison of pandas versus pyspark using the dataframes api. There's also the full notebook code here.
+    </p>
+    
+    <h2>A Simple Transform</h2>
+
+    <p>You can see pandas and pyspark are relatively similar but that pyspark is more verbose. This is a pattern you're going to see repeated and I'll explain why as we look through the other examples.</p>
+    
+    <script src="https://gist.github.com/yvan/d5d9973b44ca3303dab1b2dda826d565.js"></script>
+
+    <h2>A conditional Transform</h2>
+
+    <p>This is a conditional transform where depending on what value a particular eleement has one or another value will be output.</p>
+    
+    <script src="https://gist.github.com/yvan/9bb461d4ee1dae612af4ccdcbb5494c7.js"></script>
+
+    <p>Here if the value of the element is 1 we will transform it to `True`, and if it's anything else it will become `False`. This is intended to take our nuerical column and convert it to boolean values. We could of course cast this to a bool but that might produce unintended effects. If some element does not readily cast, it may be set as a null. This method makes sure everything in there is either True or False. Again notice the longer syntax and special functions for working with colums in pyspark.</p>
+
+    <h2>A Transform based on all data values</h2>
+
+    <p>There is more going on here so follow closely: in the pandas section I've checked to see whether all the values in the column are numbers in two different ways. First by casting values to numeric and counting them and then in the second by using a regex. I check either of these to see if we can meet the condition and cast the whole column to numeric if we do. In pyspark the idea here is to cast anything that can be cast to float, anything that can't get's filtered out by `df.filter` + isNotNull(), then count how many things we have. If that number is the same as the original dataframe the whole column can cast.</p>
+
+    <script src="https://gist.github.com/yvan/c6e9d14f89abdc07588cf0fa7347c8f3.js"></script>
+
+    <p>In the pyspark version I only did the counting, not the string regex matching. I just wanted to show some extra logic for how regex works in pandas since it's not used in the later examples much, but you can ignore 'all_are_nums' variable.</p>
+
+    <p>While the syntax differs you can clearly see that this code does the same thing in both versions. And here the column data actually won't meet our condition (you can see how I generated it in the notebook. So we will move onto the next section...</p>
+    
+    <h2>A regex-based string filtering transform</h2>
+
+    <p>Here we filter the column data for any character that would be invalid for a number in our dataset. We remove these and then cast what remains to a numeric value.</p>
+
+    <script src="https://gist.github.com/yvan/d7b62b43c7a0df380d0e92d45c249f0b.js"></script>
+
+    <p>you can see clearly that the code in both replaces any character not matching the regex, and then once that's done performs a cast on the remaining data</p>
+
+    <h2>A user defined function</h2>
+
+    <p>Here I wanted to show the difference between a user defined function in both frameworks. What you'll see right away is that in pandas you can simply apply a labda function no other calls are needed. Here I've checked for various kinds of null value and maintained those. You have to check for these or fill them or this apply will crash.</p>
+    
+    <script src="https://gist.github.com/yvan/a28ba9b15668225fd94534c05f97cdbb.js"></script>
+
+    <p>Likewise in the pyspark function you can see very siilar behavior. I actually used when unecessarily here to illustrate some behavior that may be counterintuitive. The F.when function while it will produce different behavior for different colun values, will still pass every column value to the udf. So you still need to check for null values in your udf.</p>
+
+      <p>`df = df.withColumn(col4, int_udf(F.col(col4)))` would actually have the same output with less complexity because you simply put your null handling logic in the udf and apply it to the whole column.</p>
+    
+    <h2>Comparing date transforms</h2>
+
+    <script src="https://gist.github.com/yvan/0a72c8116fe0951934925ab47a88a8db.js"></script>
+
+    <p>Here the pandas code is quite simple: it looks for a date-like thing in the column and converts it to pandas native datetime format. Pyspark is a little more complex it uses a regex to match a complex date pattern (so things with / or -) then if it finds something it replaces that with an empty string. You can think of this as a mask the data wears just for the benefit of the F.when function, the data is not actually replaced, then we check for this empty string with isNotNull() (which returns true for an empty string), if we find it, we take the original data and cast it to a date.</p>
+
+    <p>If youre date pattern is simple you can drop most of this logic and just use `df = df.withColumn(col5, F.to_timestamp(F.col(col5), 'yyyy/MM/dd'))` but I wanted to show a complex example as real world data is messy.</p>
+
+    <p><h2>Conclusion</h2></p>
+    <p>This example was simple but your data problems may be complex.</p>
+
+    <p>For any of your complex data problems I'm available to hire on contract to help you build and scale whatever data decision engine you need for your business.</p>
+
+    <p>Reach out by messaging inquire@automatedinnovations.net</p>
+  </div>
+</body>
+</html>
