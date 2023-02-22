@@ -82,6 +82,8 @@
     <p>If youre date pattern is simple you can drop most of this logic and just use `df = df.withColumn(col5, F.to_timestamp(F.col(col5), 'yyyy/MM/dd'))` but I wanted to show a complex example as real world data is messy.</p>
 
     <p><h2>Conclusion</h2></p>
+    <p>The main reason for additional syntax in pyspark is to account for the fact that the dataset is distributed and requires additional interfaces to be used to represent the operations you are doing on it.</p>
+    
     <p>This example was simple but your data problems may be complex.</p>
 
     <p>For any of your complex data problems I'm available to hire on contract to help you build and scale whatever data decision engine you need for your business.</p>
